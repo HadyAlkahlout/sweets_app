@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="store"
+            type="com.raiyansoft.sweetsapp.models.home.Store" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/itemStore"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginTop="16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="10dp">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imgBanner"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:imageURL="@{store.cover}"
+                android:scaleType="centerCrop"
+                app:riv_corner_radius="16dp"
+                app:riv_border_width="0dp"
+                app:riv_border_color="#ffffff"
+                app:riv_mutate_background="true"
+                app:riv_tile_mode="clamp"
+                app:riv_oval="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgStore"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:imageURL="@{store.image}"
+                    android:scaleType="centerCrop" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:background="@drawable/background_shop_name"
+                android:ellipsize="end"
+                android:ems="20"
+                android:fontFamily="@font/al_jazeera_arabic"
+                android:gravity="center"
+                android:paddingStart="8dp"
+                android:paddingEnd="16dp"
+                android:text="@{store.name}"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="13sp"
+                android:lines="1"
+                android:maxLines="1"
+                app:layout_constraintBottom_toBottomOf="@id/card"
+                app:layout_constraintStart_toEndOf="@id/card"
+                app:layout_constraintTop_toTopOf="@id/card" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_off"
+            android:fontFamily="@font/al_jazeera_arabic_bold"
+            android:gravity="center"
+            android:paddingBottom="8dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

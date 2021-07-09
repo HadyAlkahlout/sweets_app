@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/itemProfile"
+            android:title="@string/profile" />
+
+        <item
+            android:id="@+id/itemOrders"
+            android:title="@string/my_orders" />
+
+        <item
+            android:id="@+id/itemFavourite"
+            android:title="@string/my_fav" />
+
+        <item
+            android:id="@+id/itemAddresses"
+            android:title="@string/my_addresses" />
+
+        <item
+            android:id="@+id/itemAbout"
+            android:title="@string/about_app" />
+
+        <item
+            android:id="@+id/itemCall"
+            android:title="@string/call_us" />
+
+    </group>
+
+    <item
+        android:id="@+id/itemLang"
+        android:title="@string/lang" />
+
+</menu>

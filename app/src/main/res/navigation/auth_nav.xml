@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_nav"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.raiyansoft.sweetsapp.ui.fragments.auth.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_activationFragment"
+            app:destination="@id/activationFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_loginFragment_to_termsFragment"
+            app:destination="@id/termsFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/activationFragment"
+        android:name="com.raiyansoft.sweetsapp.ui.fragments.auth.ActivationFragment"
+        android:label="ActivationFragment"
+        tools:layout="@layout/fragment_activation" >
+        <action
+            android:id="@+id/action_activationFragment_to_authMapFragment"
+            app:destination="@id/authMapFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        <argument
+            android:name="phone"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/authMapFragment"
+        android:name="com.raiyansoft.sweetsapp.ui.fragments.auth.AuthMapFragment"
+        android:label="AuthMapFragment"
+        tools:layout="@layout/fragment_auth_map"/>
+    <fragment
+        android:id="@+id/termsFragment"
+        android:name="com.raiyansoft.sweetsapp.ui.fragments.auth.TermsFragment"
+        android:label="TermsFragment"
+        tools:layout="@layout/fragment_terms"/>
+</navigation>

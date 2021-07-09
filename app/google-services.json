@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "781751346123",
+    "project_id": "sweets-app-2021",
+    "storage_bucket": "sweets-app-2021.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781751346123:android:d37755c4b6167fb87ecc4e",
+        "android_client_info": {
+          "package_name": "com.raiyansoft.sweetsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "781751346123-5t5g2meflh2upj3d1k2v8o8ahocug1c6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.raiyansoft.sweetsapp",
+            "certificate_hash": "59e841b8a295303b613b55582afa88c3e39b7c76"
+          }
+        },
+        {
+          "client_id": "781751346123-m9e0q7ughv9b4ijidi1mldnas0ep8v6u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnSNWjkz2bqyWFRHctq7V7OkMxxl1zyhc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "781751346123-m9e0q7ughv9b4ijidi1mldnas0ep8v6u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
