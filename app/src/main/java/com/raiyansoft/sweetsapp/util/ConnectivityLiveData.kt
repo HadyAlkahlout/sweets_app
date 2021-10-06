@@ -9,10 +9,7 @@ import android.net.NetworkRequest
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.raiyansoft.sweetsapp.interactors.DoesNetworkHaveInternet
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 val TAG = "C-Manager"
 
@@ -21,6 +18,17 @@ class ConnectionLiveData(context: Context) : LiveData<Boolean>() {
     private lateinit var networkCallback: ConnectivityManager.NetworkCallback
     private val cm = context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
     private val validNetworks: MutableSet<Network> = HashSet()
+
+    init {
+        CoroutineScope(Dispatchers.IO).launch {
+            delay(3000)
+            if(validNetworks.size <= 0){
+                withContext(Dispatchers.Main){
+                    checkValidNetworks()
+                }
+            }
+        }
+    }
 
     private fun checkValidNetworks() {
         postValue(validNetworks.size > 0)
@@ -41,10 +49,10 @@ class ConnectionLiveData(context: Context) : LiveData<Boolean>() {
     private fun createNetworkCallback() = object : ConnectivityManager.NetworkCallback() {
 
         override fun onAvailable(network: Network) {
-            Log.d(TAG, "onAvailable: $network")
+            Log.e(TAG, "onAvailable: $network")
             val networkCapabilities = cm.getNetworkCapabilities(network)
             val hasInternetCapability = networkCapabilities?.hasCapability(NET_CAPABILITY_INTERNET)
-            Log.d(TAG, "onAvailable: ${network}, $hasInternetCapability")
+            Log.e(TAG, "onAvailable: ${network}, $hasInternetCapability")
             if (hasInternetCapability == true) {
                 // check if this network actually has internet
                 CoroutineScope(Dispatchers.IO).launch {
@@ -60,7 +68,7 @@ class ConnectionLiveData(context: Context) : LiveData<Boolean>() {
             }
         }
         override fun onLost(network: Network) {
-            Log.d(TAG, "onLost: $network")
+            Log.e(TAG, "onLost: $network")
             validNetworks.remove(network)
             checkValidNetworks()
         }

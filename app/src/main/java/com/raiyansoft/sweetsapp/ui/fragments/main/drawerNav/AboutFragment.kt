@@ -39,9 +39,9 @@ class AboutFragment : Fragment() {
         viewModel.getAbout()
         viewModel.dataAbout.observe(viewLifecycleOwner,
             {
-                if(it.status == 200){
+                if (it.status == 200) {
                     binding.tvAbout.text = it.data.about_us
-                }else{
+                } else {
                     Snackbar.make(requireView(), it.message, Snackbar.LENGTH_SHORT).show()
                     findNavController().navigateUp()
                 }

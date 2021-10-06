@@ -21,9 +21,7 @@ class ShopAdapter(val onClick: (store : Store) -> Unit ) : RecyclerView.Adapter<
                 onClick(store)
             }
             if (store.offer == 0.0){
-                binding.tvOff.visibility = View.GONE
-            } else {
-                binding.tvOff.text = "${store.offer}% OFF"
+                binding.llOff.visibility = View.GONE
             }
             binding.executePendingBindings()
         }

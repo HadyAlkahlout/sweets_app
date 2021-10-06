@@ -1,12 +1,18 @@
 package com.raiyansoft.sweetsapp.ui.activities
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
+import android.view.View
 import android.webkit.WebViewClient
 import com.raiyansoft.sweetsapp.R
 import com.raiyansoft.sweetsapp.databinding.ActivityPayBinding
+import com.raiyansoft.sweetsapp.util.Commons
 import com.raiyansoft.sweetsapp.util.ConnectionLiveData
+import com.raiyansoft.sweetsapp.util.LocalHelper
+import java.util.*
 
 class PayActivity : AppCompatActivity() {
 
@@ -36,6 +42,29 @@ class PayActivity : AppCompatActivity() {
         connectionLiveData.observe(this, { isNetworkAvailable ->
             binding.isInternetConnect = isNetworkAvailable
         })
+    }
+
+    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
+
+        var lang = ""
+        when (Locale.getDefault().displayLanguage) {
+            "العربية" -> {
+                lang = "ar"
+            }
+            "English" -> {
+                lang = "en"
+            }
+        }
+        val context = LocalHelper().setLocale(
+            this,
+            Commons.getSharedPreferences(this).getString(Commons.LANGUAGE, lang)!!
+        )
+        this.resources.updateConfiguration(
+            context!!.resources.configuration,
+            this.resources.displayMetrics
+        )
+
+        return super.onCreateView(name, context, attrs)
     }
 
     override fun onBackPressed() {

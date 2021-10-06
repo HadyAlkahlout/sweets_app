@@ -28,10 +28,11 @@ class AddressViewModel(application: Application) : AndroidViewModel(application)
     private val token = Commons.getSharedPreferences(application.applicationContext).getString(
         Commons.SERVER_TOKEN, ""
     )!!
+    private val location = Commons.getLocation(application.applicationContext)
 
     fun getAddress() {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.myAddress(lang, token)
+            val response = repository.myAddress(lang, token, location.area_id)
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main){
                     dataAddress.value = response.body()
@@ -42,7 +43,7 @@ class AddressViewModel(application: Application) : AndroidViewModel(application)
 
     fun deleteAddress(id : Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.deleteAddress(lang, token, id)
+            val response = repository.deleteAddress(lang, token, location.area_id, id)
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main){
                     dataDelete.value = response.body()

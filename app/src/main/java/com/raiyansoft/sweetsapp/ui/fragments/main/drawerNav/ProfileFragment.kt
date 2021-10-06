@@ -59,28 +59,50 @@ class ProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         binding.btnSave.setOnClickListener {
             when {
                 binding.edFirstName.text.isEmpty() -> {
-                    binding.edFirstName.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_error_background)
+                    binding.edFirstName.background = ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.edittext_error_background
+                    )
                 }
                 binding.edDateOfBirth.text == getString(R.string.birth_day) -> {
-                    binding.edFirstName.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
-                    binding.edDateOfBirth.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_error_background)
+                    binding.edFirstName.background =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
+                    binding.edDateOfBirth.background = ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.edittext_error_background
+                    )
                 }
                 binding.edEmail.text.isEmpty() -> {
-                    binding.edFirstName.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
-                    binding.edDateOfBirth.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
-                    binding.edEmail.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_error_background)
+                    binding.edFirstName.background =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
+                    binding.edDateOfBirth.background =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
+                    binding.edEmail.background = ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.edittext_error_background
+                    )
                 }
                 binding.spGender.selectedItemPosition == 0 -> {
-                    binding.edFirstName.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
-                    binding.edDateOfBirth.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
-                    binding.edEmail.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
-                    binding.spGender.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_error_background)
+                    binding.edFirstName.background =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
+                    binding.edDateOfBirth.background =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
+                    binding.edEmail.background =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
+                    binding.spGender.background = ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.edittext_error_background
+                    )
                 }
                 else -> {
-                    binding.edFirstName.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
-                    binding.edDateOfBirth.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
-                    binding.edEmail.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
-                    binding.spGender.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
+                    binding.edFirstName.background =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
+                    binding.edDateOfBirth.background =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
+                    binding.edEmail.background =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
+                    binding.spGender.background =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
                     saveUserData()
                 }
             }
@@ -89,28 +111,33 @@ class ProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private fun fillUserData() {
         val name = Commons.getSharedPreferences(requireContext()).getString(
-            Commons.USERNAME, "")!!
+            Commons.USERNAME, ""
+        )!!
         val phone = Commons.getSharedPreferences(requireContext()).getString(
-            Commons.USER_PHONE, "")!!
+            Commons.USER_PHONE, ""
+        )!!
         val email = Commons.getSharedPreferences(requireContext()).getString(
-            Commons.USER_EMAIL, "")!!
+            Commons.USER_EMAIL, ""
+        )!!
         val sex = Commons.getSharedPreferences(requireContext()).getInt(
-            Commons.USER_SEX, 0)
+            Commons.USER_SEX, 0
+        )
         val birth = Commons.getSharedPreferences(requireContext()).getString(
-            Commons.USER_BIRTH_DATE, "")!!
+            Commons.USER_BIRTH_DATE, ""
+        )!!
         binding.edFirstName.setText(name)
-        if (email != "null"){
+        if (email != "null") {
             binding.edEmail.setText(email)
         }
-        if (phone != ""){
+        if (phone != "") {
             binding.edPhone.setText(phone)
         }
-        if (birth != "null"){
+        if (birth != "") {
             binding.edDateOfBirth.text = birth
         }
-        if (sex == 1){
+        if (sex == 1) {
             binding.spGender.setSelection(1)
-        } else if (sex == 2){
+        } else if (sex == 2) {
             binding.spGender.setSelection(2)
         }
     }
@@ -118,7 +145,7 @@ class ProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private fun saveUserData() {
         binding.isLoading = true
         name = "${binding.edFirstName.text}"
-        sex = if (binding.spGender.selectedItemPosition == 1){
+        sex = if (binding.spGender.selectedItemPosition == 1) {
             "male"
         } else {
             "female"
@@ -135,27 +162,37 @@ class ProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private fun observeProfile() {
         viewModel.dataProfile.observe(viewLifecycleOwner,
-            {response ->
-                if (response != null){
-                    if (response.status == 200){
-                        Snackbar.make(requireView(), getString(R.string.profile_update), Snackbar.LENGTH_SHORT).show()
+            { response ->
+                if (response != null) {
+                    if (response.status == 200) {
+                        Snackbar.make(
+                            requireView(),
+                            getString(R.string.profile_update),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                         Commons.getSharedEditor(requireContext()).putString(
-                            Commons.USERNAME, name).apply()
+                            Commons.USERNAME, name
+                        ).apply()
                         Commons.getSharedEditor(requireContext()).putString(
-                            Commons.USER_PHONE, binding.edPhone.text.toString()).apply()
+                            Commons.USER_PHONE, binding.edPhone.text.toString()
+                        ).apply()
                         Commons.getSharedEditor(requireContext()).putString(
-                            Commons.USER_EMAIL, binding.edEmail.text.toString()).apply()
-                        if (binding.spGender.selectedItemPosition == 1){
+                            Commons.USER_EMAIL, binding.edEmail.text.toString()
+                        ).apply()
+                        if (binding.spGender.selectedItemPosition == 1) {
                             Commons.getSharedEditor(requireContext()).putInt(
-                                Commons.USER_SEX, 1).apply()
+                                Commons.USER_SEX, 1
+                            ).apply()
                         } else {
                             Commons.getSharedEditor(requireContext()).putInt(
-                                Commons.USER_SEX, 2).apply()
+                                Commons.USER_SEX, 2
+                            ).apply()
                         }
                         Commons.getSharedEditor(requireContext()).putString(
-                            Commons.USER_BIRTH_DATE, binding.edDateOfBirth.text.toString()).apply()
+                            Commons.USER_BIRTH_DATE, binding.edDateOfBirth.text.toString()
+                        ).apply()
                         findNavController().navigateUp()
-                    }else{
+                    } else {
                         Snackbar.make(requireView(), response.message, Snackbar.LENGTH_SHORT).show()
                     }
                     binding.isLoading = false

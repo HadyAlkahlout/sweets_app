@@ -100,6 +100,13 @@
             app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"  />
+        <action
+            android:id="@+id/action_homeFragment_to_occasionFragment"
+            app:destination="@id/occasionFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -244,9 +251,15 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <argument
-            android:name="shopId"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:name="shop"
+            app:argType="com.raiyansoft.sweetsapp.models.home.Store" />
+        <action
+            android:id="@+id/action_shopFragment_to_reviewFragment"
+            app:destination="@id/reviewFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/productFragment"
@@ -281,6 +294,13 @@
             app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_categoriesFragment_to_occasionFragment"
+            app:destination="@id/occasionFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -292,37 +312,12 @@
             app:argType="integer"
             android:defaultValue="0" />
         <action
-            android:id="@+id/action_categoryFragment_to_productFragment"
-            app:destination="@id/productFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
             android:id="@+id/action_categoryFragment_to_shopFragment"
             app:destination="@id/shopFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_categoryFragment_to_storesFilterFragment"
-            app:destination="@id/storesFilterFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <argument
-            android:name="categoryType"
-            app:argType="integer"
-            android:defaultValue="0" />
-        <action
-            android:id="@+id/action_categoryFragment_to_cartFragment"
-            app:destination="@id/cartFragment"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -393,5 +388,52 @@
             android:name="offers"
             app:argType="string"
             android:defaultValue="" />
+    </fragment>
+    <fragment
+        android:id="@+id/occasionFragment"
+        android:name="com.raiyansoft.sweetsapp.ui.fragments.main.category.OccasionFragment"
+        android:label="OccasionFragment"
+        tools:layout="@layout/fragment_occasion">
+        <argument
+            android:name="categoryId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_occasionFragment_to_productFragment"
+            app:destination="@id/productFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_occasionFragment_to_shopFragment"
+            app:destination="@id/shopFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_occasionFragment_to_storesFilterFragment"
+            app:destination="@id/storesFilterFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_occasionFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewFragment"
+        android:name="com.raiyansoft.sweetsapp.ui.fragments.main.shop.ReviewFragment"
+        android:label="fragment_review"
+        tools:layout="@layout/fragment_review">
+        <argument
+            android:name="shop"
+            app:argType="com.raiyansoft.sweetsapp.models.home.Store"/>
     </fragment>
 </navigation>

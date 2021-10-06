@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -30,6 +31,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(layoutInflater)
+        onBackPressed()
         return binding.root
     }
 
@@ -45,16 +47,30 @@ class LoginFragment : Fragment() {
             requireActivity().finish()
         }
         binding.btnLogin.setOnClickListener {
-            if (binding.edName.text.isEmpty()){
-                binding.edName.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_error_background)
-            } else if (binding.edPhone.text.isEmpty()){
-                binding.edName.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
-                binding.edPhone.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_error_background)
-            } else if (binding.edPhone.text.toString().length != 8){
-                binding.edPhone.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_error_background)
-            } else {
-                binding.edName.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
-                binding.edPhone.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
+            if (binding.edName.text.isEmpty()) {
+                binding.edName.background = ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.edittext_error_background
+                )
+            } else if (binding.edPhone.text.isEmpty()) {
+                binding.edName.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
+                binding.edPhone.background = ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.edittext_error_background
+                )
+            }
+//            else if (binding.edPhone.text.toString().length != 8) {
+//                binding.edPhone.background = ContextCompat.getDrawable(
+//                    requireContext(),
+//                    R.drawable.edittext_error_background
+//                )
+//            }
+            else {
+                binding.edName.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
+                binding.edPhone.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
                 val phone = "00965${binding.edPhone.text.toString().trim()}"
                 doLogin(binding.edName.text.toString().trim(), phone)
             }
@@ -65,19 +81,23 @@ class LoginFragment : Fragment() {
     }
 
     private fun doLogin(name: String, phone: String) {
-        if (binding.rbAgree.isChecked){
+        if (binding.rbAgree.isChecked) {
             binding.isLogin = true
             val login = Login(name, phone)
             viewModel.mackAccount(login)
             viewModel.dataLogin.observe(viewLifecycleOwner,
-                {  response ->
-                    if (response != null){
-                        if (response.status == 200){
+                { response ->
+                    if (response != null) {
+                        if (response.status == 200) {
                             binding.isLogin = false
-                            val action = LoginFragmentDirections.actionLoginFragmentToActivationFragment(phone)
+                            val action =
+                                LoginFragmentDirections.actionLoginFragmentToActivationFragment(
+                                    phone
+                                )
                             findNavController().navigate(action)
                         } else {
-                            Snackbar.make(requireView(), response.message, Snackbar.LENGTH_SHORT).show()
+                            Snackbar.make(requireView(), response.message, Snackbar.LENGTH_SHORT)
+                                .show()
                         }
                     }
                 }
@@ -90,6 +110,21 @@ class LoginFragment : Fragment() {
             val dialog = builder.create()
             dialog.show()
         }
+    }
+
+    private fun onBackPressed() {
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val navController = findNavController()
+                navController.popBackStack(R.id.authMapFragment, true)
+                navController.navigateUp()
+            }
+        }
+        // ADD LIFECYCLE OWNER
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            onBackPressedCallback
+        )
     }
 
 }

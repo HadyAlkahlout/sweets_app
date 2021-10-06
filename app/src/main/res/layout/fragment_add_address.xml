@@ -62,8 +62,8 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/map_bottom_sheet"
                 android:nestedScrollingEnabled="true"
-                android:paddingStart="35dp"
-                android:paddingEnd="35dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:paddingBottom="16dp">
 
                 <androidx.core.widget.NestedScrollView
@@ -120,12 +120,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="24dp"
-                            android:padding="8dp"
-                            android:fontFamily="@font/al_jazeera_arabic"
-                            android:text="@string/address"
-                            android:textSize="14sp"
                             android:background="@drawable/edittext_background"
-                            android:textColor="@color/colorTextPrimary" />
+                            android:fontFamily="@font/al_jazeera_arabic"
+                            android:padding="8dp"
+                            android:text="@string/address"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="14sp" />
 
                         <EditText
                             android:id="@+id/edPiece"
@@ -249,7 +249,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/btnSave"
@@ -257,14 +257,14 @@
                             android:layout_height="50dp"
                             android:layout_marginTop="30dp"
                             android:background="@drawable/background_button"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:gravity="center"
                             android:text="@string/save"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
                             android:textSize="17sp"
-                            android:textStyle="bold"
-                            android:clickable="true"
-                            android:focusable="true"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 

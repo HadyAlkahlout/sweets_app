@@ -10,8 +10,11 @@ import com.raiyansoft.sweetsapp.R
 import com.raiyansoft.sweetsapp.databinding.ItemCartCartBinding
 import com.raiyansoft.sweetsapp.models.cart.Item
 
-class CartCartAdapter(val context: Context, val onCartDelete : (id : Int) -> Unit) :
-    RecyclerView.Adapter<CartCartAdapter.ViewHolder>() {
+class CartCartAdapter(
+    val context: Context,
+    val onCartDelete: (id: Int) -> Unit,
+    val onChangeQuantity: (id: Int, newGty: Int) -> Unit
+) : RecyclerView.Adapter<CartCartAdapter.ViewHolder>() {
 
     var data = ArrayList<Item>()
 
@@ -19,9 +22,14 @@ class CartCartAdapter(val context: Context, val onCartDelete : (id : Int) -> Uni
         RecyclerView.ViewHolder(view.root) {
         fun bind(item: Item) {
             view.item = item
-            val adapter = CartProductAdapter {
-                onCartDelete(it)
-            }
+            val adapter = CartProductAdapter(
+                { id ->
+                    onCartDelete(id)
+                },
+                { id, newGty ->
+                    onChangeQuantity(id, newGty)
+                }
+            )
             view.rcProducts.layoutManager = LinearLayoutManager(context)
             view.rcProducts.adapter = adapter
             adapter.data.addAll(item.products)

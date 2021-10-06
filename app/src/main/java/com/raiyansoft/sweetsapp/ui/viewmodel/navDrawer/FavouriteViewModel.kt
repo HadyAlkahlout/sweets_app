@@ -24,10 +24,11 @@ class FavouriteViewModel(application: Application) : AndroidViewModel(applicatio
     private val token = Commons.getSharedPreferences(application.applicationContext).getString(
         Commons.SERVER_TOKEN, ""
     )!!
+    private val location = Commons.getLocation(application.applicationContext)
 
     fun getFav() {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.myFav(lang, token)
+            val response = repository.myFav(lang, token, location.area_id)
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main){
                     dataFavourite.value = response.body()

@@ -13,88 +13,285 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/itemStore"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:layout_marginTop="16dp">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="10dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imgBanner"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:imageURL="@{store.cover}"
-                android:scaleType="centerCrop"
-                app:riv_corner_radius="16dp"
-                app:riv_border_width="0dp"
-                app:riv_border_color="#ffffff"
-                app:riv_mutate_background="true"
-                app:riv_tile_mode="clamp"
-                app:riv_oval="false"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="18dp"
-                app:cardElevation="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="24dp">
 
                 <ImageView
-                    android:id="@+id/imgStore"
+                    android:id="@+id/imgBanner"
+                    android:layout_width="0dp"
+                    android:layout_height="104dp"
+                    android:imageURL="@{store.cover}"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/viewStoreImageHelper"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="54dp"
+                    app:layout_constraintBottom_toBottomOf="@id/imgBanner"
+                    app:layout_constraintTop_toTopOf="@id/imgBanner" />
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/imgStore"
+                    android:layout_width="62dp"
+                    android:layout_height="62dp"
+                    android:layout_marginStart="12dp"
                     android:imageURL="@{store.image}"
-                    android:scaleType="centerCrop" />
-            </androidx.cardview.widget.CardView>
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/viewStoreImageHelper"
+                    app:riv_border_color="#ffffff"
+                    app:riv_border_width="0dp"
+                    app:riv_corner_radius="50dp"
+                    app:riv_mutate_background="true"
+                    app:riv_oval="false"
+                    app:riv_tile_mode="clamp" />
 
-            <TextView
-                android:layout_width="120dp"
-                android:layout_height="30dp"
-                android:background="@drawable/background_shop_name"
-                android:ellipsize="end"
-                android:ems="20"
-                android:fontFamily="@font/al_jazeera_arabic"
-                android:gravity="center"
-                android:paddingStart="8dp"
-                android:paddingEnd="16dp"
-                android:text="@{store.name}"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="13sp"
-                android:lines="1"
-                android:maxLines="1"
-                app:layout_constraintBottom_toBottomOf="@id/card"
-                app:layout_constraintStart_toEndOf="@id/card"
-                app:layout_constraintTop_toTopOf="@id/card" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/al_jazeera_arabic"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:text="@{store.name}"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/imgStore"
+                    app:layout_constraintTop_toBottomOf="@id/imgBanner" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <LinearLayout
+                    android:id="@+id/llOff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/background_discount"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tvOff"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/ic_off"
-            android:fontFamily="@font/al_jazeera_arabic_bold"
-            android:gravity="center"
-            android:paddingBottom="8dp"
-            android:text=""
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/al_jazeera_arabic_bold"
+                        android:text="@string/off"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/al_jazeera_arabic_bold"
+                        android:text="%"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/al_jazeera_arabic_bold"
+                        android:text="@{String.valueOf(store.offer)}"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llDelivery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/background_delevary"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/viewStoreImageHelper">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_trunc" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/al_jazeera_arabic_bold"
+                            android:text="@string/delivery_duration"
+                            android:textColor="#09B585"
+                            android:textSize="12sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/al_jazeera_arabic_bold"
+                                android:text="@{String.valueOf(store.feesDuration)}"
+                                android:textColor="#09B585"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/al_jazeera_arabic_bold"
+                                android:text="@string/minute"
+                                android:textColor="#09B585"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/llDelivery">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/cvPointer"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/al_jazeera_arabic_bold"
+                            android:text="@string/min_order_amount"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/al_jazeera_arabic_bold"
+                            android:text="@{String.valueOf(store.minOrderAmount)}"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/al_jazeera_arabic_bold"
+                            android:text="@string/dinar"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvPointer"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        app:cardBackgroundColor="#B8B8B8"
+                        app:cardCornerRadius="50dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/al_jazeera_arabic_bold"
+                            android:text="@string/delivery_amount"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/al_jazeera_arabic_bold"
+                            android:text="@{String.valueOf(store.feesAmount)}"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/al_jazeera_arabic_bold"
+                            android:text="@string/dinar"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -18,12 +18,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import com.raiyansoft.sweetsapp.R
 import com.raiyansoft.sweetsapp.adapters.HomeBannerAdapter
 import com.raiyansoft.sweetsapp.adapters.HomeCategoryAdapter
 import com.raiyansoft.sweetsapp.adapters.HomeProductAdapter
 import com.raiyansoft.sweetsapp.adapters.HomeStoreAdapter
 import com.raiyansoft.sweetsapp.databinding.FragmentHomeBinding
+import com.raiyansoft.sweetsapp.models.address.Location
 import com.raiyansoft.sweetsapp.models.token.DeleteToken
 import com.raiyansoft.sweetsapp.ui.activities.AuthActivity
 import com.raiyansoft.sweetsapp.ui.activities.MainActivity
@@ -60,6 +62,10 @@ class HomeFragment : Fragment() {
         ViewModelProvider(this)[CartViewModel::class.java]
     }
 
+    private val locationViewModel by lazy {
+        ViewModelProvider(this)[AuthViewModel::class.java]
+    }
+
     private var token = ""
 
     override fun onCreateView(
@@ -84,6 +90,7 @@ class HomeFragment : Fragment() {
 
     private fun doInitialization() {
         token = Commons.getSharedPreferences(requireContext()).getString(Commons.SERVER_TOKEN, "")!!
+        sendLocation()
         val openOrder =
             Commons.getSharedPreferences(requireContext()).getBoolean(Commons.OPEN_ORDER, false)
         if (openOrder) {
@@ -99,12 +106,27 @@ class HomeFragment : Fragment() {
                 Commons.showLoginDialog(requireActivity())
             } else {
                 val dialog = MyAddressesDialog {
-                    Commons.getSharedEditor(requireContext()).putString(Commons.SELECTED_ADDRESS, it.address).apply()
+
+                    val location = Location(
+                        it.address,
+                        it.lat.toDouble(),
+                        it.lng.toDouble(),
+                        it.area_id.toInt()
+                    )
+
+                    val gson = Gson()
+                    val json = gson.toJson(location)
+                    Commons.getSharedEditor(requireContext())
+                        .putString(Commons.KEY_MY_LOCATION, json)
+                        .apply()
+
                     binding.tvAddresses.text = it.address
+                    viewModel.regetHome(it.area_id.toInt())
                 }
                 dialog.show(requireActivity().supportFragmentManager, "Addresses Dialog")
             }
         }
+
         setupStore()
         setupBanner()
         setupOccasion()
@@ -112,7 +134,13 @@ class HomeFragment : Fragment() {
         setupNew()
         setupTrend()
         fillHomeData()
-        binding.tvAddresses.text = Commons.getSharedPreferences(requireContext()).getString(Commons.SELECTED_ADDRESS, getString(R.string.address))
+
+        val gson = Gson()
+        val json: String = Commons.getSharedPreferences(requireContext())
+            .getString(Commons.KEY_MY_LOCATION, "")!!
+        val location: Location = gson.fromJson(json, Location::class.java)
+        binding.tvAddresses.text = location.address
+
         binding.imgSearch.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_shopsFragment)
         }
@@ -193,6 +221,17 @@ class HomeFragment : Fragment() {
         setupCartBadge()
     }
 
+    private fun sendLocation() {
+        val isSentLoc = Commons.getSharedPreferences(requireContext()).getBoolean(Commons.IS_SENT_LOC, false)
+        if (!isSentLoc) {
+            locationViewModel.saveLocation(Commons.getLocation(requireContext()))
+            locationViewModel.dataLocation.observe(viewLifecycleOwner, {
+                Log.e("EEE location",it.toString())
+            })
+            Commons.getSharedEditor(requireContext()).putBoolean(Commons.IS_SENT_LOC, true).apply()
+        }
+    }
+
     private fun setupDrawerNavigation() {
         binding.imgMenu.setOnClickListener {
             if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -253,7 +292,12 @@ class HomeFragment : Fragment() {
                                 .putString(Commons.LANGUAGE, "ar").apply()
                         }
                     }
-                    requireActivity().startActivity(Intent(requireContext(), MainActivity::class.java))
+                    requireActivity().startActivity(
+                        Intent(
+                            requireContext(),
+                            MainActivity::class.java
+                        )
+                    )
                     requireActivity().finish()
                 }
             }
@@ -265,9 +309,9 @@ class HomeFragment : Fragment() {
     private fun setupCartBadge() {
         cartViewModel.dataCart.observe(viewLifecycleOwner,
             {
-                if (it != null){
-                    if (it.status == 200){
-                        if (it.data.items.isNotEmpty()){
+                if (it != null) {
+                    if (it.status == 200) {
+                        if (it.data.items.isNotEmpty()) {
                             var num = 0
                             it.data.items.forEach { item ->
                                 num += item.products.size
@@ -282,8 +326,7 @@ class HomeFragment : Fragment() {
 
     private fun setupStore() {
         storeAdapter = HomeStoreAdapter { store ->
-            val action = HomeFragmentDirections.actionHomeFragmentToShopFragment()
-            action.shopId = store.id
+            val action = HomeFragmentDirections.actionHomeFragmentToShopFragment(store)
             findNavController().navigate(action)
         }
         binding.rcHomeSores.adapter = storeAdapter
@@ -294,9 +337,8 @@ class HomeFragment : Fragment() {
     private fun setupOccasion() {
         occasionAdapter = HomeCategoryAdapter { category ->
             // Go to category page
-            val action = HomeFragmentDirections.actionHomeFragmentToCategoryFragment()
+            val action = HomeFragmentDirections.actionHomeFragmentToOccasionFragment()
             action.categoryId = category.id
-            action.categoryType = 0
             findNavController().navigate(action)
         }
         binding.rcHomeOccasion.adapter = occasionAdapter
@@ -309,7 +351,6 @@ class HomeFragment : Fragment() {
             // Go to category page
             val action = HomeFragmentDirections.actionHomeFragmentToCategoryFragment()
             action.categoryId = category.id
-            action.categoryType = 1
             findNavController().navigate(action)
         }
         binding.rcHomeDepartment.adapter = departmentAdapter
@@ -356,9 +397,8 @@ class HomeFragment : Fragment() {
                     requireActivity().startActivity(intent)
                 }
                 "store" -> {
-                    val action = HomeFragmentDirections.actionHomeFragmentToShopFragment()
-                    action.shopId = ad.type_id
-                    findNavController().navigate(action)
+//                    val action = HomeFragmentDirections.actionHomeFragmentToShopFragment(null)
+//                    findNavController().navigate(action)
                 }
                 "product" -> {
                     val action = HomeFragmentDirections.actionHomeFragmentToProductFragment()
@@ -428,24 +468,63 @@ class HomeFragment : Fragment() {
         viewModel.dataHome.observe(viewLifecycleOwner,
             {
                 if (it != null) {
+
+                    if (it.data.stores.isEmpty()) {
+                        binding.rcHomeSores.visibility = View.GONE
+                    } else {
+                        binding.rcHomeSores.visibility = View.VISIBLE
+                    }
                     storeAdapter.data.addAll(it.data.stores)
                     storeAdapter.notifyDataSetChanged()
 
+                    if (it.data.ads.isEmpty()) {
+                        binding.banner.visibility = View.GONE
+                    } else {
+                        binding.banner.visibility = View.VISIBLE
+                    }
                     bannerAdapter.data.addAll(it.data.ads)
                     bannerAdapter.notifyDataSetChanged()
 
                     setupIndicators()
                     setCurrentIndicator(0)
 
+                    if (it.data.occasions.isEmpty()) {
+                        binding.rcHomeOccasion.visibility = View.GONE
+                        binding.layoutOccasion.visibility = View.GONE
+                    } else {
+                        binding.rcHomeOccasion.visibility = View.VISIBLE
+                        binding.layoutOccasion.visibility = View.VISIBLE
+                    }
                     occasionAdapter.data.addAll(it.data.occasions)
                     occasionAdapter.notifyDataSetChanged()
 
+                    if (it.data.categories.isEmpty()) {
+                        binding.rcHomeDepartment.visibility = View.GONE
+                        binding.layoutDepartment.visibility = View.GONE
+                    } else {
+                        binding.rcHomeDepartment.visibility = View.VISIBLE
+                        binding.layoutDepartment.visibility = View.VISIBLE
+                    }
                     departmentAdapter.data.addAll(it.data.categories)
                     departmentAdapter.notifyDataSetChanged()
 
+                    if (it.data.new_products.isEmpty()) {
+                        binding.rcHomeNew.visibility = View.GONE
+                        binding.layoutCatNew.visibility = View.GONE
+                    } else {
+                        binding.rcHomeNew.visibility = View.VISIBLE
+                        binding.layoutCatNew.visibility = View.VISIBLE
+                    }
                     newAdapter.data.addAll(it.data.new_products)
                     newAdapter.notifyDataSetChanged()
 
+                    if (it.data.most_sales.isEmpty()) {
+                        binding.rcHomeTrend.visibility = View.GONE
+                        binding.layoutCatTrend.visibility = View.GONE
+                    } else {
+                        binding.rcHomeTrend.visibility = View.VISIBLE
+                        binding.layoutCatTrend.visibility = View.VISIBLE
+                    }
                     trendAdapter.data.addAll(it.data.most_sales)
                     trendAdapter.notifyDataSetChanged()
                 }

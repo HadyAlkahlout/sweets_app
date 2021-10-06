@@ -22,19 +22,14 @@ class OccasionViewModel(application: Application) : AndroidViewModel(application
 
     private val lang = Commons.getSharedPreferences(application.applicationContext).getString(
         Commons.LANGUAGE, "ar")!!
+    private val location = Commons.getLocation(application.applicationContext)
 
     fun getOccasions(page : Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.getAllOccasions(lang, page)
+            val response = repository.getAllOccasions(lang, location.area_id, page)
             if (response.isSuccessful){
                 withContext(Dispatchers.Main){
                     dataOccasions.value = response.body()
-                }
-            }else{
-                if (page == 1){
-                    withContext(Dispatchers.Main){
-                        dataOccasions.value = null
-                    }
                 }
             }
         }
@@ -42,7 +37,7 @@ class OccasionViewModel(application: Application) : AndroidViewModel(application
 
     fun getOccasionProducts(id : Int, page : Int, query : String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.getOccasionProducts(lang, id, page, query)
+            val response = repository.getOccasionProducts(lang, location.area_id, id, page, query)
             if (response.isSuccessful){
                 withContext(Dispatchers.Main){
                     dataOccasion.value = response.body()

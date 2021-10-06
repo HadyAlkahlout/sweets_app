@@ -1,10 +1,7 @@
 package com.raiyansoft.sweetsapp.ui.fragments.auth
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
@@ -17,7 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -27,14 +24,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import com.raiyansoft.sweetsapp.R
 import com.raiyansoft.sweetsapp.databinding.FragmentAuthMapBinding
-import com.raiyansoft.sweetsapp.ui.activities.MainActivity
 import com.raiyansoft.sweetsapp.ui.dialogs.CitiesDialog
-import com.raiyansoft.sweetsapp.ui.viewmodel.auth.AuthViewModel
 import com.raiyansoft.sweetsapp.util.Commons
-import java.util.*
-
 
 class AuthMapFragment : Fragment() {
 
@@ -49,10 +43,6 @@ class AuthMapFragment : Fragment() {
     private var long = 0.0
     private var address = ""
     private var areaID = 0
-
-    private val viewModel by lazy {
-        ViewModelProvider(this)[AuthViewModel::class.java]
-    }
 
     private val callback = OnMapReadyCallback { googleMap ->
         fetchLastLocation()
@@ -94,7 +84,16 @@ class AuthMapFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAuthMapBinding.inflate(layoutInflater)
+        checkLocation()
         return binding.root
+    }
+
+    private fun checkLocation() {
+        val json: String = Commons.getSharedPreferences(requireContext())
+            .getString(Commons.KEY_MY_LOCATION, "")!!
+        if (json != "") {
+            findNavController().navigate(R.id.action_authMapFragment_to_loginFragment)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -105,16 +104,16 @@ class AuthMapFragment : Fragment() {
     }
 
     private fun doInitialization() {
-        binding.isLogin = false
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(
             requireActivity()
         )
-        manager = requireContext().getSystemService(FragmentActivity.LOCATION_SERVICE) as LocationManager
+        manager =
+            requireContext().getSystemService(FragmentActivity.LOCATION_SERVICE) as LocationManager
         binding.btnAddLocation.setOnClickListener {
             setLocation()
         }
         binding.tvAddresses.setOnClickListener {
-            val dialog = CitiesDialog{
+            val dialog = CitiesDialog {
                 binding.tvAddresses.text = it.name
                 address = it.name
                 areaID = it.id
@@ -124,39 +123,27 @@ class AuthMapFragment : Fragment() {
     }
 
     private fun setLocation() {
-        if (lat == 0.0 || long == 0.0){
-            Snackbar.make(requireView(), getString(R.string.location_ditict), Snackbar.LENGTH_SHORT).show()
-        } else if(binding.tvAddresses.text.toString() == getString(R.string.address)) {
-            binding.tvAddresses.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_error_background)
+        if (lat == 0.0 || long == 0.0) {
+            Snackbar.make(requireView(), getString(R.string.location_ditict), Snackbar.LENGTH_SHORT)
+                .show()
+        } else if (areaID == 0) {
+            binding.tvAddresses.background =
+                ContextCompat.getDrawable(requireContext(), R.drawable.edittext_error_background)
         } else {
             val builder = AlertDialog.Builder(requireContext())
             builder.setTitle(getString(R.string.warning))
             builder.setMessage(getString(R.string.are_sure))
             builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
-                binding.isLogin = true
-                val location = com.raiyansoft.sweetsapp.models.address.Location(address, lat, long, areaID)
-                viewModel.saveLocation(location)
-                viewModel.dataLocation.observe(viewLifecycleOwner,
-                    { response ->
-                        if (response != null) {
-                            if (response.status == 200) {
-                                binding.isLogin = false
-                                Commons.getSharedEditor(requireContext()).putBoolean(
-                                    Commons.LOGIN,
-                                    true
-                                ).apply()
-                                startActivity(Intent(requireContext(), MainActivity::class.java))
-                                requireActivity().finish()
-                            } else {
-                                Snackbar.make(
-                                    requireView(),
-                                    response.message,
-                                    Snackbar.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
-                    }
-                )
+                val location =
+                    com.raiyansoft.sweetsapp.models.address.Location(address, lat, long, areaID)
+
+                val gson = Gson()
+                val json = gson.toJson(location)
+                Commons.getSharedEditor(requireContext()).putString(Commons.KEY_MY_LOCATION, json)
+                    .apply()
+
+                // go to login here
+                findNavController().navigate(R.id.action_authMapFragment_to_loginFragment)
             }
             builder.setNegativeButton(getString(R.string.no)) { view, _ -> view.dismiss() }
             val dialog = builder.create()

@@ -1,7 +1,6 @@
 package com.raiyansoft.sweetsapp.ui.fragments.main.cart
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,7 @@ import com.raiyansoft.sweetsapp.R
 import com.raiyansoft.sweetsapp.adapters.CartCartAdapter
 import com.raiyansoft.sweetsapp.databinding.FragmentCartBinding
 import com.raiyansoft.sweetsapp.models.cart.CartResponse
+import com.raiyansoft.sweetsapp.models.cart.ChangeQuantity
 import com.raiyansoft.sweetsapp.ui.viewmodel.cart.CartViewModel
 
 class CartFragment : Fragment() {
@@ -26,7 +26,7 @@ class CartFragment : Fragment() {
         ViewModelProvider(this)[CartViewModel::class.java]
     }
 
-    private lateinit var cart : CartResponse
+    private lateinit var cart: CartResponse
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,28 +48,27 @@ class CartFragment : Fragment() {
 
     private fun doInitialization() {
         binding!!.isEmpty = true
-        adapter = CartCartAdapter(requireContext()
-        ) { it ->
-            binding!!.refreshLayout.isRefreshing = true
-            viewModel.removeFromCart(it)
-            viewModel.dataRemove.observe(viewLifecycleOwner,
-                {
-                    if (it != null){
-                        if (it.status == 200){
-                            Snackbar.make(requireView(), it.data, Snackbar.LENGTH_SHORT).show()
-                            adapter.data.clear()
-                            adapter.notifyDataSetChanged()
-                            getData()
-                            binding!!.refreshLayout.isRefreshing = false
-                        } else {
-                            Snackbar.make(requireView(), it.message, Snackbar.LENGTH_SHORT).show()
-                        }
-                    }
-                })
-        }
+        adapter = CartCartAdapter(
+            requireContext(),
+            { id ->
+                binding!!.refreshLayout.isRefreshing = true
+                viewModel.removeFromCart(id)
+            },
+            { id, newGty ->
+                binding!!.refreshLayout.isRefreshing = true
+                var changeQuantity = ChangeQuantity(newGty)
+                viewModel.changeQuantity(id, changeQuantity)
+            }
+        )
+        responseToChanges()
         binding!!.rcCart.layoutManager = LinearLayoutManager(requireContext())
         binding!!.rcCart.adapter = adapter
-        binding!!.rcCart.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.recyclerview_animation))
+        binding!!.rcCart.startAnimation(
+            AnimationUtils.loadAnimation(
+                requireContext(),
+                R.anim.recyclerview_animation
+            )
+        )
         getCart()
         binding!!.refreshLayout.setOnRefreshListener {
             adapter.data.clear()
@@ -108,10 +107,41 @@ class CartFragment : Fragment() {
     }
 
     private fun getData() {
-        if (binding != null){
+        if (binding != null) {
             binding!!.refreshLayout.isRefreshing = true
         }
         viewModel.getCart()
+    }
+
+    private fun responseToChanges() {
+        viewModel.dataRemove.observe(viewLifecycleOwner,
+            {
+                if (it != null) {
+                    if (it.status == 200) {
+                        Snackbar.make(requireView(), it.data, Snackbar.LENGTH_SHORT).show()
+                        adapter.data.clear()
+                        adapter.notifyDataSetChanged()
+                        getData()
+                        binding!!.refreshLayout.isRefreshing = false
+                    } else {
+                        Snackbar.make(requireView(), it.message, Snackbar.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        viewModel.dataChangeQuantity.observe(viewLifecycleOwner,
+            {
+                if (it != null) {
+                    if (it.status == 200) {
+                        Snackbar.make(requireView(), it.data, Snackbar.LENGTH_SHORT).show()
+                        adapter.data.clear()
+                        adapter.notifyDataSetChanged()
+                        getData()
+                        binding!!.refreshLayout.isRefreshing = false
+                    } else {
+                        Snackbar.make(requireView(), it.message, Snackbar.LENGTH_SHORT).show()
+                    }
+                }
+            })
     }
 
 }

@@ -50,8 +50,8 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/background_page"
                 android:orientation="vertical"
-                android:paddingStart="40dp"
-                android:paddingEnd="40dp">
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
 
                 <TextView
                     android:id="@+id/tvAbout"
@@ -59,10 +59,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="44dp"
                     android:fontFamily="@font/al_jazeera_arabic"
+                    android:nestedScrollingEnabled="true"
                     android:text="@string/about_app"
                     android:textColor="@color/colorTextSecondary"
-                    android:textSize="18sp"
-                    android:nestedScrollingEnabled="true"/>
+                    android:textSize="18sp" />
 
             </LinearLayout>
 

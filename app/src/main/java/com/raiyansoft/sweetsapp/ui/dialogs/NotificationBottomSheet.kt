@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.raiyansoft.sweetsapp.databinding.DialogNotificationBottomsheerBinding
 
-class NotificationBottomSheet(val onMove: () -> Unit) : BottomSheetDialogFragment() {
+class NotificationBottomSheet(val onMove: () -> Unit, val onSkip: () -> Unit) : BottomSheetDialogFragment() {
 
     private lateinit var binding: DialogNotificationBottomsheerBinding
 
@@ -32,7 +32,7 @@ class NotificationBottomSheet(val onMove: () -> Unit) : BottomSheetDialogFragmen
             dismiss()
         }
         binding.tvSkip.setOnClickListener {
-            onMove()
+            onSkip()
             dismiss()
         }
     }

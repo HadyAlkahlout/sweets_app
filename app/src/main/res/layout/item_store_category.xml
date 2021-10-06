@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="category"
             type="String" />
@@ -13,23 +14,23 @@
         android:layout_width="wrap_content"
         android:layout_height="54dp"
         android:layout_margin="8dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="2dp"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@{category}"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="16sp"
+            android:ellipsize="end"
             android:fontFamily="@font/al_jazeera_arabic_bold"
-            android:padding="8dp"
+            android:gravity="center"
             android:lines="1"
             android:maxLines="1"
-            android:ellipsize="end"/>
+            android:padding="8dp"
+            android:text="@{category}"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="16sp" />
 
     </androidx.cardview.widget.CardView>
 </layout>

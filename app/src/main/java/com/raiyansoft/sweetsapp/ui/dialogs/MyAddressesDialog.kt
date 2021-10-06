@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,9 +15,11 @@ import com.raiyansoft.sweetsapp.R
 import com.raiyansoft.sweetsapp.adapters.MyAddressesAdapter
 import com.raiyansoft.sweetsapp.databinding.DialogMyAddressesBinding
 import com.raiyansoft.sweetsapp.models.address.UpdateAddressResponse
+import com.raiyansoft.sweetsapp.ui.viewmodel.auth.AuthViewModel
 import com.raiyansoft.sweetsapp.ui.viewmodel.navDrawer.AddressViewModel
+import com.raiyansoft.sweetsapp.util.Commons
 
-class MyAddressesDialog(val onClick : (address : UpdateAddressResponse) -> Unit) :
+class MyAddressesDialog(val onClick: (address: UpdateAddressResponse) -> Unit) :
     DialogFragment() {
 
     private lateinit var binding: DialogMyAddressesBinding
@@ -32,7 +35,6 @@ class MyAddressesDialog(val onClick : (address : UpdateAddressResponse) -> Unit)
         savedInstanceState: Bundle?
     ): View {
         binding = DialogMyAddressesBinding.inflate(layoutInflater)
-        setStyle(STYLE_NORMAL, R.style.FullscreenDialogTheme)
         return binding.root
     }
 
@@ -48,7 +50,12 @@ class MyAddressesDialog(val onClick : (address : UpdateAddressResponse) -> Unit)
         }
         binding.rcMyAddresses.layoutManager = LinearLayoutManager(requireContext())
         binding.rcMyAddresses.adapter = adapter
-        binding.rcMyAddresses.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.recyclerview_animation))
+        binding.rcMyAddresses.startAnimation(
+            AnimationUtils.loadAnimation(
+                requireContext(),
+                R.anim.recyclerview_animation
+            )
+        )
         fillAddresses()
     }
 
@@ -65,6 +72,14 @@ class MyAddressesDialog(val onClick : (address : UpdateAddressResponse) -> Unit)
                     Snackbar.make(requireView(), it.message, Snackbar.LENGTH_SHORT).show()
                 }
             })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        dialog!!.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
     }
 
 }

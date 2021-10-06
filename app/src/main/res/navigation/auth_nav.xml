@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/auth_nav"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/authMapFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -30,13 +30,6 @@
         android:name="com.raiyansoft.sweetsapp.ui.fragments.auth.ActivationFragment"
         android:label="ActivationFragment"
         tools:layout="@layout/fragment_activation" >
-        <action
-            android:id="@+id/action_activationFragment_to_authMapFragment"
-            app:destination="@id/authMapFragment"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left" />
         <argument
             android:name="phone"
             app:argType="string" />
@@ -45,7 +38,15 @@
         android:id="@+id/authMapFragment"
         android:name="com.raiyansoft.sweetsapp.ui.fragments.auth.AuthMapFragment"
         android:label="AuthMapFragment"
-        tools:layout="@layout/fragment_auth_map"/>
+        tools:layout="@layout/fragment_auth_map">
+        <action
+            android:id="@+id/action_authMapFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
     <fragment
         android:id="@+id/termsFragment"
         android:name="com.raiyansoft.sweetsapp.ui.fragments.auth.TermsFragment"

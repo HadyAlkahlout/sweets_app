@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="item"
             type="com.raiyansoft.sweetsapp.models.order.OrderItem" />
@@ -13,6 +14,7 @@
         android:id="@+id/itemCat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         app:cardCornerRadius="0dp"
         app:cardElevation="0dp">
 
@@ -24,26 +26,26 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@{item.store_name}"
                 android:fontFamily="@font/al_jazeera_arabic_bold"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="@{item.store_name}"
                 android:textColor="@color/colorTextPrimary"
-                android:textSize="19sp"
-                android:padding="8dp"/>
+                android:textSize="19sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#E3E3E3"
-                android:layout_marginTop="4dp"/>
+                android:layout_marginTop="4dp"
+                android:background="#E3E3E3" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcProducts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_marginTop="8dp"
-                tools:listitem="@layout/item_order_product"/>
+                tools:listitem="@layout/item_order_product" />
 
         </LinearLayout>
 

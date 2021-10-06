@@ -44,16 +44,28 @@ class CallFragment : Fragment() {
 
     private fun doInitialization() {
         binding.btnSend.setOnClickListener {
-            if (binding.edReason.text.isEmpty()){
-                binding.edReason.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_error_background)
-            } else if (binding.edMessage.text.isEmpty()){
-                binding.edReason.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
-                binding.edMessage.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_error_background)
+            if (binding.edReason.text.isEmpty()) {
+                binding.edReason.background = ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.edittext_error_background
+                )
+            } else if (binding.edMessage.text.isEmpty()) {
+                binding.edReason.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
+                binding.edMessage.background = ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.edittext_error_background
+                )
             } else {
-                binding.edReason.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
-                binding.edMessage.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
+                binding.edReason.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
+                binding.edMessage.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.edittext_background)
                 binding.pbLoading.visibility = View.VISIBLE
-                sendMessage(binding.edReason.text.toString().trim(), binding.edMessage.text.toString().trim())
+                sendMessage(
+                    binding.edReason.text.toString().trim(),
+                    binding.edMessage.text.toString().trim()
+                )
             }
         }
         getPagesLinks()
@@ -67,7 +79,7 @@ class CallFragment : Fragment() {
             startActivity(i)
         }
         binding.imgInstagram.setOnClickListener {
-            if (instagramLink.startsWith("http")){
+            if (instagramLink.startsWith("http")) {
                 i.data = Uri.parse(instagramLink)
             } else {
                 val url = "https://www.$instagramLink"
@@ -76,7 +88,7 @@ class CallFragment : Fragment() {
             startActivity(i)
         }
         binding.imgTwitter.setOnClickListener {
-            if (instagramLink.startsWith("http")){
+            if (instagramLink.startsWith("http")) {
                 i.data = Uri.parse(twitterLink)
             } else {
                 val url = "https://www.$twitterLink"
@@ -85,7 +97,7 @@ class CallFragment : Fragment() {
             startActivity(i)
         }
         binding.imgChat.setOnClickListener {
-            if (instagramLink.startsWith("http")){
+            if (instagramLink.startsWith("http")) {
                 i.data = Uri.parse(facebookLink)
             } else {
                 val url = "https://www.$facebookLink"
@@ -98,8 +110,8 @@ class CallFragment : Fragment() {
     private fun getPagesLinks() {
         viewModel.getPages()
         viewModel.dataPages.observe(viewLifecycleOwner,
-            {response ->
-                if (response != null){
+            { response ->
+                if (response != null) {
                     whatsNum = response.data.whatsapp
                     instagramLink = response.data.insta
                     twitterLink = response.data.twitter
@@ -113,11 +125,15 @@ class CallFragment : Fragment() {
         val contact = ContactUs(reason, message)
         viewModel.contactUs(contact)
         viewModel.dataContact.observe(viewLifecycleOwner,
-            {response ->
-                if (response != null){
+            { response ->
+                if (response != null) {
                     binding.pbLoading.visibility = View.GONE
-                    if (response.status == 200){
-                        Snackbar.make(requireView(), getString(R.string.call_sent), Snackbar.LENGTH_SHORT).show()
+                    if (response.status == 200) {
+                        Snackbar.make(
+                            requireView(),
+                            getString(R.string.call_sent),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                         findNavController().navigateUp()
                     } else {
                         Snackbar.make(requireView(), response.message, Snackbar.LENGTH_SHORT).show()

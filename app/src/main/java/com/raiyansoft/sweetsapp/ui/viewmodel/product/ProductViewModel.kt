@@ -14,6 +14,7 @@ import com.raiyansoft.sweetsapp.util.Commons
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.RequestBody
 
 class ProductViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -27,10 +28,11 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         Commons.LANGUAGE, "ar")!!
     private val token = Commons.getSharedPreferences(application.applicationContext).getString(
         Commons.SERVER_TOKEN, "")!!
+    private val location = Commons.getLocation(application.applicationContext)
 
     fun getProduct(id : Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.getProduct(lang, id)
+            val response = repository.getProduct(lang, location.area_id, id)
             if (response.isSuccessful){
                 withContext(Dispatchers.Main){
                     dataProduct.value = response.body()
@@ -41,7 +43,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
     fun getProduct(token: String, id : Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.getProduct(lang, token, id)
+            val response = repository.getProduct(lang, token, location.area_id, id)
             if (response.isSuccessful){
                 withContext(Dispatchers.Main){
                     dataProduct.value = response.body()
@@ -52,7 +54,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
     fun setFav(id : Fav) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.setFav(lang, token, id)
+            val response = repository.setFav(lang, token, location.area_id, id)
             if (response.isSuccessful){
                 withContext(Dispatchers.Main){
                     dataFav.value = response.body()
@@ -65,7 +67,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
     fun addToCart(id : Int, addCart: AddCart) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.addToCart(lang, token, id, addCart)
+            val response = repository.addToCart(lang, token, location.area_id, id, addCart)
             Log.e("TAG", "addToCart: $response")
             if (response.isSuccessful){
                 withContext(Dispatchers.Main){
@@ -74,6 +76,5 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
             }
         }
     }
-
 
 }

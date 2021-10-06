@@ -1,6 +1,7 @@
 package com.raiyansoft.sweetsapp.ui.fragments.main.drawerNav
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +14,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.raiyansoft.sweetsapp.R
 import com.raiyansoft.sweetsapp.adapters.AddressAdapter
 import com.raiyansoft.sweetsapp.databinding.FragmentAddressesBinding
-import com.raiyansoft.sweetsapp.ui.fragments.main.drawerNav.AddressesFragmentDirections
-import com.raiyansoft.sweetsapp.ui.viewmodel.navDrawer.AboutViewModel
+import com.raiyansoft.sweetsapp.ui.viewmodel.auth.AuthViewModel
 import com.raiyansoft.sweetsapp.ui.viewmodel.navDrawer.AddressViewModel
+import com.raiyansoft.sweetsapp.util.Commons
 
 class AddressesFragment : Fragment() {
 
@@ -63,7 +64,12 @@ class AddressesFragment : Fragment() {
         }
         binding!!.rcAddresses.adapter = adapter
         binding!!.rcAddresses.layoutManager = LinearLayoutManager(requireContext())
-        binding!!.rcAddresses.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.recyclerview_animation))
+        binding!!.rcAddresses.startAnimation(
+            AnimationUtils.loadAnimation(
+                requireContext(),
+                R.anim.recyclerview_animation
+            )
+        )
         binding!!.swipeLayout.setOnRefreshListener {
             getData()
         }
@@ -72,13 +78,14 @@ class AddressesFragment : Fragment() {
     private fun fillAddressesData() {
         viewModel.dataAddress.observe(viewLifecycleOwner,
             {
-                if(it.status == 200){
+                if (it.status == 200) {
                     adapter.data.clear()
                     adapter.notifyDataSetChanged()
+                    Log.e("TAG", "fillAddressesData: ${it.data}")
                     adapter.data.addAll(it.data)
                     adapter.notifyDataSetChanged()
                     binding!!.swipeLayout.isRefreshing = false
-                }else{
+                } else {
                     Snackbar.make(requireView(), it.message, Snackbar.LENGTH_SHORT).show()
                     findNavController().navigateUp()
                 }
@@ -86,7 +93,7 @@ class AddressesFragment : Fragment() {
     }
 
     private fun getData() {
-        if (binding != null){
+        if (binding != null) {
             binding!!.swipeLayout.isRefreshing = true
         }
         viewModel.getAddress()

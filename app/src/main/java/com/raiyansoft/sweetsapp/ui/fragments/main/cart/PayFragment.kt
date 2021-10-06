@@ -2,7 +2,6 @@ package com.raiyansoft.sweetsapp.ui.fragments.main.cart
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.raiyansoft.sweetsapp.R
 import com.raiyansoft.sweetsapp.databinding.FragmentPayBinding
-import com.raiyansoft.sweetsapp.models.cart.Product
 import com.raiyansoft.sweetsapp.models.cart.SubmitCart
 import com.raiyansoft.sweetsapp.ui.activities.PayActivity
 import com.raiyansoft.sweetsapp.ui.viewmodel.cart.CartViewModel
@@ -64,7 +62,10 @@ class PayFragment : Fragment() {
                     payID = 3
                 }
                 else -> {
-                    binding.layoutPay.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_error_background)
+                    binding.layoutPay.background = ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.edittext_error_background
+                    )
                 }
             }
             goPay(payID)
@@ -72,7 +73,7 @@ class PayFragment : Fragment() {
     }
 
     private fun goPay(id: Int) {
-        if (pay){
+        if (pay) {
             pay = false
             binding.pbLoad.visibility = View.VISIBLE
             when (id) {
@@ -92,8 +93,12 @@ class PayFragment : Fragment() {
                     if (it != null) {
                         if (it.status == 200) {
                             // Do Payment
-                            if (id == 3){
-                                Snackbar.make(requireView(), getString(R.string.order_completed), Snackbar.LENGTH_SHORT).show()
+                            if (id == 3) {
+                                Snackbar.make(
+                                    requireView(),
+                                    getString(R.string.order_completed),
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
                                 findNavController().navigate(R.id.action_payFragment_to_homeFragment)
                             } else {
                                 val intent = Intent(requireContext(), PayActivity::class.java)

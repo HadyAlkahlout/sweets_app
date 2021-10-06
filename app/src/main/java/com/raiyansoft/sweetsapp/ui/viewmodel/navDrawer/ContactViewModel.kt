@@ -25,9 +25,10 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
     )!!
     private val token = Commons.getSharedPreferences(application.applicationContext)
         .getString(Commons.SERVER_TOKEN, "")!!
+    private val location = Commons.getLocation(application.applicationContext)
 
     private suspend fun contact(contactUs: ContactUs) {
-        val response = repository.contactUs(lang, token, contactUs)
+        val response = repository.contactUs(lang, token, location.area_id, contactUs)
         if (response.isSuccessful) {
             withContext(Dispatchers.Main){
                 dataContact.value = response.body()
@@ -37,7 +38,7 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
 
     fun getPages() {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.contactPages()
+            val response = repository.contactPages(location.area_id)
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main){
                     dataPages.value = response.body()

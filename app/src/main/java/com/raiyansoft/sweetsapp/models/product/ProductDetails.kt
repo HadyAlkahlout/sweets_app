@@ -23,5 +23,7 @@ data class ProductDetails(
     @SerializedName("favorite")
     val favourite: Int,
     @SerializedName("offer_percentage")
-    val offer: Double
+    val offer: Double,
+    @SerializedName("additions")
+    val additions: Addition
 )

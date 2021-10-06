@@ -59,10 +59,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="44dp"
                     android:fontFamily="@font/al_jazeera_arabic"
+                    android:nestedScrollingEnabled="true"
                     android:text="@string/terms"
                     android:textColor="@color/colorTextSecondary"
-                    android:textSize="18sp"
-                    android:nestedScrollingEnabled="true"/>
+                    android:textSize="18sp" />
 
             </LinearLayout>
 

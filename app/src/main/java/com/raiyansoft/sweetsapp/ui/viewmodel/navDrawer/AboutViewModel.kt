@@ -20,10 +20,11 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
 
     private val lang = Commons.getSharedPreferences(application.applicationContext).getString(
         Commons.LANGUAGE, "ar")!!
+    private val location = Commons.getLocation(application.applicationContext)
 
     fun getAbout() {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.aboutUs(lang)
+            val response = repository.aboutUs(lang, location.area_id)
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main){
                     dataAbout.value = response.body()

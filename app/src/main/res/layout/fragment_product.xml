@@ -9,7 +9,7 @@
             name="product"
             type="com.raiyansoft.sweetsapp.models.product.ProductDetails" />
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,6 +86,8 @@
                     android:id="@+id/tvOff"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="45dp"
                     android:background="@drawable/ic_off"
                     android:fontFamily="@font/al_jazeera_arabic_bold"
                     android:gravity="center"
@@ -94,8 +96,6 @@
                     android:textColor="@color/white"
                     android:textSize="12sp"
                     android:visibility="gone"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="45dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -137,14 +137,43 @@
                         android:paddingStart="24dp"
                         android:paddingEnd="24dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/al_jazeera_arabic"
-                            android:text="@{product.name}"
-                            android:textColor="@color/colorTextPrimary"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.7"
+                                android:fontFamily="@font/al_jazeera_arabic"
+                                android:text="@{product.name}"
+                                android:textColor="@color/colorTextPrimary"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.1"
+                                android:fontFamily="@font/al_jazeera_arabic"
+                                android:text="@{String.valueOf(product.preparation_minute)}"
+                                android:textColor="@color/colorTextPrimary"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.2"
+                                android:fontFamily="@font/al_jazeera_arabic"
+                                android:text="@string/minute"
+                                android:textColor="@color/colorTextPrimary"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
 
                         <View
                             android:layout_width="match_parent"
@@ -154,7 +183,7 @@
                             android:background="#EDEBEB" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/al_jazeera_arabic"
@@ -232,7 +261,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:visibility="gone"
                             android:background="@drawable/background_product_edittext"
                             android:fontFamily="@font/al_jazeera_arabic"
                             android:gravity="top|start"
@@ -241,7 +269,82 @@
                             android:minLines="4"
                             android:padding="12dp"
                             android:textColor="@color/colorTextPrimary"
-                            android:textSize="13sp" />
+                            android:textSize="13sp"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="4dp"
+                        android:background="#EDEBEB" />
+
+                    <LinearLayout
+                        android:id="@+id/llAdditions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <LinearLayout
+                            android:id="@+id/llOnce"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/al_jazeera_arabic"
+                                android:text="@string/just_one"
+                                android:textColor="@color/colorTextPrimary"
+                                android:textSize="13sp" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rcOnceOptions"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:nestedScrollingEnabled="false"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                tools:listitem="@layout/item_product_option" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/viewAdditionsDev"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="4dp"
+                            android:background="#EDEBEB" />
+
+                        <LinearLayout
+                            android:id="@+id/llMulti"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="@font/al_jazeera_arabic"
+                                android:text="@string/multi"
+                                android:textColor="@color/colorTextPrimary"
+                                android:textSize="13sp" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rcMultiOptions"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:nestedScrollingEnabled="false"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                tools:listitem="@layout/item_product_option" />
+
+                        </LinearLayout>
+
                     </LinearLayout>
 
                     <View
@@ -253,11 +356,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
                         android:fontFamily="@font/al_jazeera_arabic_bold"
                         android:text="@string/similar_products"
                         android:textColor="@color/colorTextPrimary"
-                        android:textSize="15sp"
-                        android:layout_marginStart="16dp"/>
+                        android:textSize="15sp" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rcSimilarProducts"
@@ -362,7 +465,7 @@
                             android:text="@string/dinar"
                             android:textAlignment="center"
                             android:textColor="@color/colorTextPrimary"
-                            android:textSize="20sp"/>
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/tvPrice"
@@ -373,7 +476,7 @@
                             android:text="@{String.valueOf(product.price)}"
                             android:textAlignment="center"
                             android:textColor="@color/colorTextPrimary"
-                            android:textSize="20sp"/>
+                            android:textSize="20sp" />
 
                     </LinearLayout>
 

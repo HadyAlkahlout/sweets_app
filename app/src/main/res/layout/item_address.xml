@@ -35,17 +35,17 @@
                     android:layout_weight="0.8"
                     android:fontFamily="@font/al_jazeera_arabic_bold"
                     android:text="@{address.address}"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="18sp"
-                    android:textAlignment="viewStart"/>
+                    android:textSize="18sp" />
 
                 <ImageView
                     android:id="@+id/imgEdit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="0.2"
-                    android:src="@drawable/ic_edit"
-                    android:layout_gravity="center"/>
+                    android:src="@drawable/ic_edit" />
 
             </LinearLayout>
 
@@ -55,9 +55,9 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/al_jazeera_arabic"
                 android:text="@{address.area}"
+                android:textAlignment="viewStart"
                 android:textColor="@color/colorTextPrimary"
-                android:textSize="14sp"
-                android:textAlignment="viewStart"/>
+                android:textSize="14sp" />
 
         </LinearLayout>
 

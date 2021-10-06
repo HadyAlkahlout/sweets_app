@@ -55,13 +55,17 @@ class ShopsFragment : Fragment() {
 
     private fun doInitialization() {
         adapter = ShopAdapter { store ->
-            val action = ShopsFragmentDirections.actionShopsFragmentToShopFragment()
-            action.shopId = store.id
+            val action = ShopsFragmentDirections.actionShopsFragmentToShopFragment(store)
             findNavController().navigate(action)
         }
         binding!!.rcShops.adapter = adapter
         binding!!.rcShops.addOnScrollListener(onScrollListener)
-        binding!!.rcShops.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.recyclerview_animation))
+        binding!!.rcShops.startAnimation(
+            AnimationUtils.loadAnimation(
+                requireContext(),
+                R.anim.recyclerview_animation
+            )
+        )
         binding!!.edSearch.addTextChangedListener {
             binding!!.imageSearch.visibility = View.GONE
             query = binding!!.edSearch.text.toString().trim()
@@ -95,7 +99,7 @@ class ShopsFragment : Fragment() {
                     adapter.notifyDataSetChanged()
                     loading = false
                     binding!!.swipeLayout.isRefreshing = false
-                }else {
+                } else {
                     binding!!.swipeLayout.isRefreshing = false
                     binding!!.tvEmpty.visibility = View.VISIBLE
                 }
@@ -105,7 +109,7 @@ class ShopsFragment : Fragment() {
 
     private fun getData() {
         loading = true
-        if (binding != null){
+        if (binding != null) {
             binding!!.swipeLayout.isRefreshing = true
         }
         viewModel.getStores(currentPage, query)

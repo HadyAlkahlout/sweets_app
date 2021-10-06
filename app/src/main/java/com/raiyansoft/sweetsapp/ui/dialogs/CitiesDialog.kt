@@ -2,9 +2,7 @@ package com.raiyansoft.sweetsapp.ui.dialogs
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +15,7 @@ import com.raiyansoft.sweetsapp.databinding.DialogMyAddressesBinding
 import com.raiyansoft.sweetsapp.models.cities.Region
 import com.raiyansoft.sweetsapp.ui.viewmodel.areas.AreaViewModel
 
-class CitiesDialog(val onClick : (region : Region) -> Unit) :
+class CitiesDialog(val onClick: (region: Region) -> Unit) :
     DialogFragment() {
 
     private lateinit var binding: DialogCitiesBinding
@@ -42,13 +40,18 @@ class CitiesDialog(val onClick : (region : Region) -> Unit) :
     }
 
     private fun doInitialization() {
-        adapter = CityAdapter(requireContext()){
+        adapter = CityAdapter(requireContext()) {
             onClick(it)
             dismiss()
         }
         binding.rcCities.layoutManager = LinearLayoutManager(requireContext())
         binding.rcCities.adapter = adapter
-        binding.rcCities.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.recyclerview_animation))
+        binding.rcCities.startAnimation(
+            AnimationUtils.loadAnimation(
+                requireContext(),
+                R.anim.recyclerview_animation
+            )
+        )
         fillAddresses()
     }
 
@@ -66,6 +69,14 @@ class CitiesDialog(val onClick : (region : Region) -> Unit) :
                     Snackbar.make(requireView(), it.message, Snackbar.LENGTH_SHORT).show()
                 }
             })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        dialog!!.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
     }
 
 }

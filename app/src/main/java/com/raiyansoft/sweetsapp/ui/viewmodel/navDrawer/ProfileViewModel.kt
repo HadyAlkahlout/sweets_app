@@ -24,9 +24,10 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     )!!
     private val token = Commons.getSharedPreferences(application.applicationContext)
         .getString(Commons.SERVER_TOKEN, "")!!
+    private val location = Commons.getLocation(application.applicationContext)
 
     private suspend fun update(profile: UpdateProfile) {
-        val response = repository.updateProfile(lang, token, profile)
+        val response = repository.updateProfile(lang, token, location.area_id, profile)
         if (response.isSuccessful) {
             withContext(Dispatchers.Main){
                 dataProfile.value = response.body()

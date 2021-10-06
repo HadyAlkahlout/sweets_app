@@ -53,7 +53,12 @@ class FavouriteFragment : Fragment() {
         }
         binding!!.rcFavourite.adapter = adapter
         binding!!.rcFavourite.layoutManager = LinearLayoutManager(requireContext())
-        binding!!.rcFavourite.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.recyclerview_animation))
+        binding!!.rcFavourite.startAnimation(
+            AnimationUtils.loadAnimation(
+                requireContext(),
+                R.anim.recyclerview_animation
+            )
+        )
         fillFavouriteData()
         binding!!.swipeLayout.setOnRefreshListener {
             adapter.data.clear()
@@ -65,11 +70,11 @@ class FavouriteFragment : Fragment() {
     private fun fillFavouriteData() {
         viewModel.dataFavourite.observe(viewLifecycleOwner,
             {
-                if(it.status == 200){
+                if (it.status == 200) {
                     adapter.data.addAll(it.data)
                     adapter.notifyDataSetChanged()
                     binding!!.swipeLayout.isRefreshing = false
-                }else{
+                } else {
                     Snackbar.make(requireView(), it.message, Snackbar.LENGTH_SHORT).show()
                     findNavController().navigateUp()
                 }
@@ -77,7 +82,7 @@ class FavouriteFragment : Fragment() {
     }
 
     private fun getData() {
-        if (binding != null){
+        if (binding != null) {
             binding!!.swipeLayout.isRefreshing = true
         }
         viewModel.getFav()

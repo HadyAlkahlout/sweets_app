@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="category"
             type="com.raiyansoft.sweetsapp.models.home.Category" />
@@ -10,7 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/categoryLayout"
-        android:layout_width="260dp"
+        android:layout_width="300dp"
         android:layout_height="260dp"
         android:layout_margin="8dp"
         android:clickable="true"
@@ -20,36 +21,36 @@
             android:id="@+id/cardImage"
             android:layout_width="match_parent"
             android:layout_height="165dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:cardCornerRadius="16dp"
-            app:cardElevation="2dp">
+            app:cardElevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/imgBanner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:imageURL="@{category.image}"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop" />
 
         </androidx.cardview.widget.CardView>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardImage"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:ellipsize="end"
             android:fontFamily="@font/al_jazeera_arabic_bold"
+            android:lines="1"
+            android:maxLength="20"
+            android:maxLines="1"
             android:text="@{category.name}"
             android:textColor="@color/colorTextPrimary"
-            android:textSize="16sp"
-            android:lines="1"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:maxLength="20"/>
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardImage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

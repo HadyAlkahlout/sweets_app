@@ -27,9 +27,11 @@ class TokenViewModel(application: Application) : AndroidViewModel(application) {
     val dataSet = MutableLiveData<GeneralResponse<String>>()
     val dataDelete = MutableLiveData<GeneralResponse<String>>()
 
+    private val location = Commons.getLocation(application.applicationContext)
+
     fun setToken(setToken : SetToken) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.setToken(setToken)
+            val response = repository.setToken(location.area_id, setToken)
             if (response.isSuccessful){
                 withContext(Dispatchers.Main){
                     dataSet.value = response.body()
@@ -40,7 +42,7 @@ class TokenViewModel(application: Application) : AndroidViewModel(application) {
 
     fun deleteToken(deleteToken : DeleteToken) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.deleteToken(deleteToken)
+            val response = repository.deleteToken(location.area_id, deleteToken)
             Log.e("TAG", "deleteToken: $response")
             if (response.isSuccessful){
                 withContext(Dispatchers.Main){

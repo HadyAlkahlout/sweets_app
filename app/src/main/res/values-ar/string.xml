@@ -75,7 +75,7 @@
     <string name="additional_info">معلومات اضافية عن العنوان</string>
     <string name="delete_conf">هل أنت متأكد من حذف هذا العنوان ؟</string>
     <string name="order_no">رقم الطلب :</string>
-    <string name="dinar">دك</string>
+    <string name="dinar">ر.س</string>
     <string name="current_orders">طلباتي الحالية</string>
     <string name="previous_orders">طلباتي السابقة</string>
     <string name="my_order">طلبي</string>
@@ -85,6 +85,7 @@
     <string name="delivery">التوصيل</string>
     <string name="total">الاجمالي</string>
     <string name="cancel_order">إلغاء الطلب</string>
+    <string name="cancel">إلغاء</string>
     <string name="repeat_order">تكرار الطلب</string>
     <string name="cancel_conf">هل انت متأكد من إلغاء الطلب ؟</string>
     <string name="payment_method">طريقة الدفع</string>
@@ -132,4 +133,27 @@
     <string name="order_num">طلب رقم</string>
     <string name="comp_pro">إتمام العملية</string>
     <string name="empty_product">لا يوجد منتجات لعرضها!!</string>
+    <string name="min_order_amount">الحد الأدنى للطلب</string>
+    <string name="delivery_amount">رسوم التوصيل</string>
+    <string name="delivery_duration">مدة التوصيل</string>
+    <string name="minute">دقيقة</string>
+    <string name="shop_status">حالة المحل</string>
+    <string name="shop_rate">تقييم المحل</string>
+    <string name="rate_num">تم تقييمه</string>
+    <string name="times">مرة</string>
+    <string name="just_one">اضافات (واحدة فقط)</string>
+    <string name="multi">اضافات (متعدد)</string>
+    <string name="evaluation">التقييم</string>
+    <string name="your_evaluation">قييم طلبك</string>
+    <string name="add_comment">اضف تعليق</string>
+    <string name="submit_review">أرسل تقييمك</string>
+    <string name="view_review"><u>عرض التقييمات</u></string>
+    <string name="write_review">اكتب تقييمك</string>
+    <string name="rate_massage_error">الرجاء ادخال تعليقك</string>
+    <string name="rate_review_error">الرجاء قم باضافة تقييم</string>
+    <string name="rate_done">تم إرسال تقييمك بنجاح!!</string>
+
+    <string name="closed">مغلق</string>
+    <string name="busy">مشغول</string>
+    <string name="available">متاح</string>
 </resources>

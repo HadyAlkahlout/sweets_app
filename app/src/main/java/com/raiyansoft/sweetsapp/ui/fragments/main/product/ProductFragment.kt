@@ -18,19 +18,26 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.snackbar.Snackbar
 import com.raiyansoft.sweetsapp.R
 import com.raiyansoft.sweetsapp.adapters.HomeProductAdapter
+import com.raiyansoft.sweetsapp.adapters.OptionsMultiAdapter
+import com.raiyansoft.sweetsapp.adapters.OptionsOnceAdapter
 import com.raiyansoft.sweetsapp.adapters.ProductGalleryAdapter
 import com.raiyansoft.sweetsapp.databinding.FragmentProductBinding
+import com.raiyansoft.sweetsapp.models.cart.PassOption
 import com.raiyansoft.sweetsapp.models.product.AddCart
 import com.raiyansoft.sweetsapp.models.product.Fav
 import com.raiyansoft.sweetsapp.ui.dialogs.CartAddBottomSheet
 import com.raiyansoft.sweetsapp.ui.viewmodel.product.ProductViewModel
 import com.raiyansoft.sweetsapp.util.Commons
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
 
-class  ProductFragment : Fragment() {
+class ProductFragment : Fragment() {
 
     private lateinit var binding: FragmentProductBinding
     private lateinit var adapter: HomeProductAdapter
     private lateinit var bannerAdapter: ProductGalleryAdapter
+    private lateinit var optionsOnceAdapter: OptionsOnceAdapter
+    private lateinit var optionsMultiAdapter: OptionsMultiAdapter
 
     private val viewModel by lazy {
         ViewModelProvider(this)[ProductViewModel::class.java]
@@ -55,6 +62,7 @@ class  ProductFragment : Fragment() {
     private var dedicatePrice = 0.0
     private var total = 0.0
     private var add = true
+    private var favorite = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,9 +93,12 @@ class  ProductFragment : Fragment() {
             findNavController().navigateUp()
         }
         binding.tvAddCart.setOnClickListener {
-            if (binding.cbWrite.isChecked){
-                if (binding.edMessage.text.isEmpty()){
-                    binding.edMessage.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_error_background)
+            if (binding.cbWrite.isChecked) {
+                if (binding.edMessage.text.isEmpty()) {
+                    binding.edMessage.background = ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.edittext_error_background
+                    )
                 } else {
                     addToCart(productId)
                 }
@@ -131,8 +142,30 @@ class  ProductFragment : Fragment() {
         binding.rcSimilarProducts.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
+        optionsOnceAdapter = OptionsOnceAdapter { isSelected, price ->
+            if (isSelected) {
+                binding.tvPrice.text =
+                    (binding.tvPrice.text.toString().toDouble() + price).toString()
+            } else {
+                binding.tvPrice.text =
+                    (binding.tvPrice.text.toString().toDouble() - price).toString()
+            }
+        }
+        binding.rcOnceOptions.adapter = optionsOnceAdapter
+
+        optionsMultiAdapter = OptionsMultiAdapter { isSelected, price ->
+            if (isSelected) {
+                binding.tvPrice.text =
+                    (binding.tvPrice.text.toString().toDouble() + price).toString()
+            } else {
+                binding.tvPrice.text =
+                    (binding.tvPrice.text.toString().toDouble() - price).toString()
+            }
+        }
+        binding.rcMultiOptions.adapter = optionsMultiAdapter
+
         binding.cbWrite.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked){
+            if (isChecked) {
                 binding.edMessage.visibility = View.VISIBLE
                 binding.tvIncrease.visibility = View.GONE
                 binding.tvReduce.visibility = View.GONE
@@ -150,8 +183,15 @@ class  ProductFragment : Fragment() {
     }
 
     private fun addToFav() {
-        val id = Fav(productId)
-        viewModel.setFav(id)
+        if (token == "") {
+            Commons.showLoginDialog(requireActivity())
+        } else {
+            if (favorite) {
+                favorite = false
+                val id = Fav(productId)
+                viewModel.setFav(id)
+            }
+        }
     }
 
     private fun observeFav() {
@@ -178,6 +218,7 @@ class  ProductFragment : Fragment() {
                         Snackbar.make(requireView(), response.message, Snackbar.LENGTH_SHORT).show()
                     }
                 }
+                favorite = true
             })
     }
 
@@ -192,7 +233,27 @@ class  ProductFragment : Fragment() {
                     dedicateMessage = binding.edMessage.text.toString().trim()
                     dedicatePrice = binding.tvGift.text.toString().toDouble()
                 }
-                val addCart = AddCart(dedicateMessage, dedicatePrice, qut)
+                val additions = ArrayList<PassOption>()
+                var passOption = PassOption()
+                optionsOnceAdapter.data.forEach { option ->
+                    if (option.isSelected){
+                        passOption = PassOption(
+                            option.id,
+                            option.price.toDouble()
+                        )
+                        additions.add(passOption)
+                    }
+                }
+                optionsMultiAdapter.data.forEach { option ->
+                    if (option.isSelected){
+                        passOption = PassOption(
+                            option.id,
+                            option.price.toDouble()
+                        )
+                        additions.add(passOption)
+                    }
+                }
+                val addCart = AddCart(dedicateMessage, dedicatePrice, qut, additions)
                 viewModel.addToCart(id, addCart)
 
             }
@@ -209,7 +270,7 @@ class  ProductFragment : Fragment() {
                             requireActivity().supportFragmentManager,
                             "Cart Dialog"
                         )
-                    }else{
+                    } else {
                         Log.e("TAG", "doInitialization: added")
                     }
                 } else {
@@ -238,6 +299,23 @@ class  ProductFragment : Fragment() {
                         binding.product = response.data
                         bannerAdapter.data.addAll(response.data.gallery)
                         bannerAdapter.notifyDataSetChanged()
+
+                        if (response.data.additions != null){
+                            if (response.data.additions.once.isEmpty()){
+                                binding.llOnce.visibility = View.GONE
+                                binding.viewAdditionsDev.visibility = View.GONE
+                            }
+                            if (response.data.additions.multiple.isEmpty()){
+                                binding.llMulti.visibility = View.GONE
+                                binding.viewAdditionsDev.visibility = View.GONE
+                            }
+                            optionsOnceAdapter.data.addAll(response.data.additions.once)
+                            optionsOnceAdapter.notifyDataSetChanged()
+                            optionsMultiAdapter.data.addAll(response.data.additions.multiple)
+                            optionsMultiAdapter.notifyDataSetChanged()
+                        } else {
+                            binding.llAdditions.visibility = View.GONE
+                        }
 
                         total = response.data.price
 

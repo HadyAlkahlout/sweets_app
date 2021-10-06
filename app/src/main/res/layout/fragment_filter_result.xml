@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -38,11 +38,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
+                        android:fontFamily="@font/al_jazeera_arabic_bold"
                         android:text="@string/filter_results"
                         android:textColor="@color/colorTextPrimary"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/al_jazeera_arabic_bold" />
+                        android:textStyle="bold" />
 
                     <ImageView
                         android:id="@+id/imgRefresh"
@@ -78,11 +78,11 @@
             android:id="@+id/tvEmpty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/al_jazeera_arabic_bold"
             android:text="@string/empty_product"
+            android:textColor="@color/colorPrimary"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="@color/colorPrimary"
-            android:fontFamily="@font/al_jazeera_arabic_bold"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

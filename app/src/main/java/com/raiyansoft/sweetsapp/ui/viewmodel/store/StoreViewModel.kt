@@ -22,21 +22,17 @@ class StoreViewModel(application: Application) : AndroidViewModel(application) {
 
     val dataStores = MutableLiveData<GeneralPaginateResponse<Store>>()
     val dataStore = MutableLiveData<GeneralResponse<List<StoreCategory>>>()
-    val dataStoreData = MutableLiveData<GeneralResponse<StoreDetails>>()
 
     private val lang = Commons.getSharedPreferences(application.applicationContext).getString(
         Commons.LANGUAGE, "ar")!!
+    private val location = Commons.getLocation(application.applicationContext)
 
     fun getStores(page : Int, query : String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.getAllStores(lang, page, query)
+            val response = repository.getAllStores(lang, location.area_id, page, query)
             if (response.isSuccessful){
                 withContext(Dispatchers.Main){
                     dataStores.value = response.body()
-                }
-            }else{
-                withContext(Dispatchers.Main){
-                    dataStores.value = null
                 }
             }
         }
@@ -44,25 +40,10 @@ class StoreViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getStoreProducts(id : Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.getStoreProducts(lang, id)
+            val response = repository.getStoreProducts(lang, location.area_id, id)
             if (response.isSuccessful){
                 withContext(Dispatchers.Main){
                     dataStore.value = response.body()
-                }
-            }else{
-                withContext(Dispatchers.Main){
-                    dataStore.value = null
-                }
-            }
-        }
-    }
-
-    fun getStoreData(id : Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.getStoreData(lang, id)
-            if (response.isSuccessful){
-                withContext(Dispatchers.Main){
-                    dataStoreData.value = response.body()
                 }
             }
         }

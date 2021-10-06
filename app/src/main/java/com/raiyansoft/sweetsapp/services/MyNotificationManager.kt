@@ -28,7 +28,7 @@ class MyNotificationManager(var context: Context) {
         val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
         val nBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
-        val notification = nBuilder.setSmallIcon(R.drawable.app_icon)
+        val notification = nBuilder.setSmallIcon(R.drawable.app_logo)
                 .setContentIntent(pendingIntent)
                 .setContentTitle(title)
                 .setContentText(message)

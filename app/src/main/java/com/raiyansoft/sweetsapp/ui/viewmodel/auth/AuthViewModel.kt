@@ -28,9 +28,10 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
     private val lang = Commons.getSharedPreferences(application.applicationContext).getString(Commons.LANGUAGE, "ar")!!
     private val token = Commons.getSharedPreferences(application.applicationContext).getString(Commons.SERVER_TOKEN, "")!!
+    private val location = Commons.getLocation(application.applicationContext)
 
     private suspend fun login(login: Login) {
-        val response = repository.login(lang, login)
+        val response = repository.login(lang, location.area_id, login)
         if (response.isSuccessful){
             withContext(Dispatchers.Main){
                 dataLogin.value = response.body()
@@ -39,7 +40,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private suspend fun logout() {
-        val response = repository.logout(token)
+        val response = repository.logout(token, location.area_id)
         if (response.isSuccessful){
             withContext(Dispatchers.Main){
                 dataLogout.value = response.body()
@@ -48,7 +49,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private suspend fun active(verification : Verification) {
-        val response = repository.activateAccount(lang, verification)
+        val response = repository.activateAccount(lang, location.area_id, verification)
         if (response.isSuccessful){
             withContext(Dispatchers.Main){
                 dataActive.value = response.body()

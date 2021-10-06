@@ -1,5 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable-ar/background_shop_name.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/background_active_indicator.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/background_button.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/background_cart_badge.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/background_dark_button.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/background_delevary.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/background_discount.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/background_gradient_page.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/background_home_nav.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/background_inactive_indicator.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/background_item_counter.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/background_location_button.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/background_page.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/background_product_edittext.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/background_shop_name.xml" value="0.15416666666666667" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/drawer_background.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/ic_cart_delete.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/ic_delete.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/ic_selected.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/drawable/ic_unselected.xml" value="0.2712820512820513" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/activity_auth.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/activity_main.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/activity_pay.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/activity_splash.xml" value="0.264" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/bottom_sheet_rate.xml" value="0.23097826086956522" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/dialog_cancel_bottomsheer.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/dialog_cart_add.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/dialog_cities.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/dialog_delete_bottomsheer.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/dialog_map.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/dialog_my_addresses.xml" value="0.264" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/dialog_notification_bottomsheer.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/drawer_header.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_about.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_activation.xml" value="0.23097826086956522" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_add_address.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_addresses.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_auth_map.xml" value="0.23097826086956522" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_call.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_cart.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_categories.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_category.xml" value="0.23097826086956522" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_favourite.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_filter_result.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_login.xml" value="0.23097826086956522" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_occasion.xml" value="0.23097826086956522" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_order.xml" value="0.2" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_orders.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_pay.xml" value="0.2" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_product.xml" value="0.264" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_profile.xml" value="0.4" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_review.xml" value="0.23097826086956522" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_shop.xml" value="0.264" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_shops.xml" value="0.12" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_stores_filter.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_summary.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/fragment_terms.xml" value="0.23097826086956522" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_address.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_cart_cart.xml" value="0.264" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_cart_order.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_cart_product.xml" value="0.264" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_category.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_category_product.xml" value="0.264" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_city.xml" value="0.23097826086956522" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_dialog_address.xml" value="0.264" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_dialog_region.xml" value="0.264" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_favourite.xml" value="0.2" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_filter.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_home_banner.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_home_category.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_home_product.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_home_store.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_option_holder.xml" value="0.23097826086956522" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_order.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_order_product.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_product_banner.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_product_option.xml" value="0.264" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_review.xml" value="0.23097826086956522" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_shop.xml" value="0.264" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_store_category.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_store_category_products.xml" value="0.12613981762917933" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_store_product.xml" value="0.4" />
+        <entry key="..\:/My Works/Raiyansoft/Sweets App/SweetsApp/app/src/main/res/layout/item_summary.xml" value="0.264" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

@@ -36,6 +36,10 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowAnimationStyle">@style/Animation.AppCompat.Dialog</item>
     </style>
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#A7A7A7</item>
+        <item name="colorControlActivated">#FCC511</item>
+    </style>
 
 
 </resources>

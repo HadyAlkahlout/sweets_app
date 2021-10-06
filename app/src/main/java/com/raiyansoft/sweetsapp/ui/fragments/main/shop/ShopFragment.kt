@@ -1,5 +1,6 @@
 package com.raiyansoft.sweetsapp.ui.fragments.main.shop
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -53,17 +54,16 @@ class ShopFragment : Fragment() {
         }
     )
 
-    private var shopId = 0
+    private lateinit var shop: Store
     private var add = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
             val args = ShopFragmentArgs.fromBundle(requireArguments())
-            shopId = args.shopId
+            shop = args.shop
         }
         getData()
-        getStoreData()
     }
 
     override fun onCreateView(
@@ -82,8 +82,26 @@ class ShopFragment : Fragment() {
 
     private fun doInitialization() {
         observeCartAdd()
+        binding.store = shop
+        binding.rbShopRate.rating = shop.ratesStars.toFloat()
+        if (shop.isOpen) {
+            if (shop.isBusy) {
+                binding.tvShopStatus.text = getString(R.string.busy)
+                binding.tvShopStatus.setTextColor(Color.parseColor("#FCC511"))
+            } else {
+                binding.tvShopStatus.text = getString(R.string.available)
+                binding.tvShopStatus.setTextColor(Color.parseColor("#34C30A"))
+            }
+        } else {
+            binding.tvShopStatus.text = getString(R.string.closed)
+            binding.tvShopStatus.setTextColor(Color.parseColor("#DC0000"))
+        }
         binding.imgBack.setOnClickListener {
             findNavController().navigateUp()
+        }
+        binding.tvViewReviews.setOnClickListener {
+            val action = ShopFragmentDirections.actionShopFragmentToReviewFragment(shop)
+            findNavController().navigate(action)
         }
         categories = ArrayList()
         categoryAdapter = StoreCategoryAdapter { position ->
@@ -134,7 +152,7 @@ class ShopFragment : Fragment() {
                             requireActivity().supportFragmentManager,
                             "Cart Dialog"
                         )
-                    }else{
+                    } else {
                         Log.e("TAG", "doInitialization: added")
                     }
                 } else {
@@ -155,7 +173,7 @@ class ShopFragment : Fragment() {
         viewModel.dataStore.observe(viewLifecycleOwner,
             {
                 if (it != null) {
-                    if (it.data.isNotEmpty()){
+                    if (it.data.isNotEmpty()) {
                         productAdapter.data.clear()
                         productAdapter.data.addAll(it.data)
                         categories.clear()
@@ -164,33 +182,22 @@ class ShopFragment : Fragment() {
                             categories.add(i.category_name)
                         }
                         fillCategories()
-                    }else {
+                    } else {
                         binding.tvEmpty.visibility = View.VISIBLE
                         binding.rcProducts.visibility = View.GONE
                         binding.rcCategories.visibility = View.GONE
                     }
-                }else {
+                } else {
                     binding.tvEmpty.visibility = View.VISIBLE
                     binding.rcProducts.visibility = View.GONE
                     binding.rcCategories.visibility = View.GONE
                 }
             }
         )
-        viewModel.dataStoreData.observe(viewLifecycleOwner,
-            {
-                if (it != null) {
-                    binding.store = it.data.store_data
-                }
-            }
-        )
     }
 
     private fun getData() {
-        viewModel.getStoreProducts(shopId)
-    }
-
-    private fun getStoreData() {
-        viewModel.getStoreData(shopId)
+        viewModel.getStoreProducts(shop.id)
     }
 
 }

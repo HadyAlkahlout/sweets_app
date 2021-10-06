@@ -22,7 +22,6 @@ import com.raiyansoft.sweetsapp.models.cart.Product
 import com.raiyansoft.sweetsapp.models.cart.SubmitDetails
 import com.raiyansoft.sweetsapp.ui.dialogs.MyAddressesDialog
 import com.raiyansoft.sweetsapp.ui.viewmodel.cart.CartViewModel
-import com.raiyansoft.sweetsapp.ui.viewmodel.navDrawer.AddressViewModel
 
 class SummaryFragment : Fragment(), TimePickerDialog.OnTimeSetListener,
     DatePickerDialog.OnDateSetListener {
@@ -95,24 +94,25 @@ class SummaryFragment : Fragment(), TimePickerDialog.OnTimeSetListener,
     }
 
     private fun goPay() {
-       if (pay){
-           pay = false
-           val submitDetails = SubmitDetails(areaID, date, time)
-           viewModel.submitDetails(submitDetails)
-           viewModel.dataSubmit.observe(viewLifecycleOwner,
-               {
-                   if (it != null) {
-                       if (it.status == 200) {
-                           val action = SummaryFragmentDirections.actionSummaryFragmentToPayFragment()
-                           action.total = total
-                           findNavController().navigate(action)
-                       } else {
-                           Snackbar.make(requireView(), it.message, Snackbar.LENGTH_SHORT).show()
-                       }
-                       pay = true
-                   }
-               })
-       }
+        if (pay) {
+            pay = false
+            val submitDetails = SubmitDetails(areaID, date, time)
+            viewModel.submitDetails(submitDetails)
+            viewModel.dataSubmit.observe(viewLifecycleOwner,
+                {
+                    if (it != null) {
+                        if (it.status == 200) {
+                            val action =
+                                SummaryFragmentDirections.actionSummaryFragmentToPayFragment()
+                            action.total = total
+                            findNavController().navigate(action)
+                        } else {
+                            Snackbar.make(requireView(), it.message, Snackbar.LENGTH_SHORT).show()
+                        }
+                        pay = true
+                    }
+                })
+        }
     }
 
     private fun getCart() {

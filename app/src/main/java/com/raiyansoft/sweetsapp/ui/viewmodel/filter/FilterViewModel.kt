@@ -27,10 +27,11 @@ class FilterViewModel(application: Application) : AndroidViewModel(application) 
 
     private val lang = Commons.getSharedPreferences(application.applicationContext).getString(
         Commons.LANGUAGE, "ar")!!
+    private val location = Commons.getLocation(application.applicationContext)
 
     fun getFilters() {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.getFilterData(lang)
+            val response = repository.getFilterData(lang, location.area_id)
             if (response.isSuccessful){
                 withContext(Dispatchers.Main){
                     dataFilters.value = response.body()
@@ -44,15 +45,11 @@ class FilterViewModel(application: Application) : AndroidViewModel(application) 
         params: Map<String, RequestBody>
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.getFilterProduct(lang, page, params)
+            val response = repository.getFilterProduct(lang, location.area_id, page, params)
             Log.e("TAG", "getFilterProducts: $response")
             if (response.isSuccessful){
                 withContext(Dispatchers.Main){
                     dataFilterProducts.value = response.body()
-                }
-            }else{
-                withContext(Dispatchers.Main){
-                    dataFilterProducts.value = null
                 }
             }
         }

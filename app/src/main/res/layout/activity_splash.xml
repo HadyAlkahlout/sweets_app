@@ -6,20 +6,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/bc_splash"
         app:layoutDescription="@xml/activity_splash_scene"
-        tools:context=".ui.activities.SplashActivity"
-        android:background="@color/white">
+        tools:context=".ui.activities.SplashActivity">
 
-        <VideoView
-            android:id="@+id/vvSplash"
+
+        <ImageView
+            android:id="@+id/imgLogo"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_margin="0dp"
-            android:padding="0dp" />
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/app_logo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

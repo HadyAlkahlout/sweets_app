@@ -1,7 +1,6 @@
 package com.raiyansoft.sweetsapp.ui.fragments.main.filter
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.raiyansoft.sweetsapp.R
 import com.raiyansoft.sweetsapp.adapters.FilterAdapter
 import com.raiyansoft.sweetsapp.databinding.FragmentStoresFilterBinding
 import com.raiyansoft.sweetsapp.ui.viewmodel.filter.FilterViewModel
@@ -32,9 +30,9 @@ class StoresFilterFragment : Fragment() {
     private val occasion = ArrayList<Int>()
     private val preparation = ArrayList<Int>()
 
-    private var categoryId : IntArray? = null
-    private var occasionId : IntArray? = null
-    private var preparationId : IntArray? = null
+    private var categoryId: IntArray? = null
+    private var occasionId: IntArray? = null
+    private var preparationId: IntArray? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

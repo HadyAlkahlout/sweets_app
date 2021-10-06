@@ -39,9 +39,9 @@ class TermsFragment : Fragment() {
         viewModel.getTerms()
         viewModel.dataTerms.observe(viewLifecycleOwner,
             {
-                if(it.status == 200){
+                if (it.status == 200) {
                     binding.tvTerms.text = it.data.terms
-                }else{
+                } else {
                     Snackbar.make(requireView(), it.message, Snackbar.LENGTH_SHORT).show()
                     findNavController().navigateUp()
                 }

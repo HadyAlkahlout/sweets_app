@@ -21,10 +21,11 @@ class TermsViewModel(application: Application) : AndroidViewModel(application) {
     private val lang = Commons.getSharedPreferences(application.applicationContext).getString(
         Commons.LANGUAGE, "ar"
     )!!
+    private val location = Commons.getLocation(application.applicationContext)
 
     fun getTerms() {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.terms(lang)
+            val response = repository.terms(lang, location.area_id)
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main){
                     dataTerms.value = response.body()

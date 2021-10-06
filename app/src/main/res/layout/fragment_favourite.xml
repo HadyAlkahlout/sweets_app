@@ -50,8 +50,8 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/background_page"
                 android:orientation="vertical"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp">
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
 
                 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                     android:id="@+id/swipeLayout"

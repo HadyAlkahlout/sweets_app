@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="internetConnection"
             type="Boolean" />
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
     </data>
 
@@ -21,12 +22,12 @@
             android:id="@+id/textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/internet_message"
             android:background="@color/colorTextPrimary"
-            android:textSize="14sp"
+            android:fontFamily="@font/al_jazeera_arabic"
+            android:text="@string/internet_message"
             android:textAlignment="center"
             android:textColor="@color/colorTextSecondary"
-            android:fontFamily="@font/al_jazeera_arabic"
+            android:textSize="14sp"
             android:visibility="@{internetConnection ? View.GONE : View.VISIBLE, default = gone}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,8 +41,8 @@
             app:defaultNavHost="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView"
             app:navGraph="@navigation/auth_nav" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

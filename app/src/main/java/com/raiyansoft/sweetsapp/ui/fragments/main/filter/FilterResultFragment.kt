@@ -22,6 +22,7 @@ import com.raiyansoft.sweetsapp.util.Commons
 import com.raiyansoft.sweetsapp.util.OnScrollListener
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.util.*
 
 class FilterResultFragment : Fragment() {
@@ -82,7 +83,7 @@ class FilterResultFragment : Fragment() {
     }
 
     private fun doInitialization() {
-        if (arguments != null){
+        if (arguments != null) {
             val args = FilterResultFragmentArgs.fromBundle(requireArguments())
             categoryId = args.categoryId
             occasionId = args.occasionId
@@ -132,15 +133,19 @@ class FilterResultFragment : Fragment() {
             },
             { shopID ->
                 // open store page
-                val action =
-                    FilterResultFragmentDirections.actionFilterResultFragmentToShopFragment()
-                action.shopId = shopID
-                findNavController().navigate(action)
+//                val action =
+//                    FilterResultFragmentDirections.actionFilterResultFragmentToShopFragment(null)
+//                findNavController().navigate(action)
             }
         )
         binding.rcProducts.adapter = adapter
         binding.rcProducts.layoutManager = LinearLayoutManager(requireContext())
-        binding.rcProducts.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.recyclerview_animation))
+        binding.rcProducts.startAnimation(
+            AnimationUtils.loadAnimation(
+                requireContext(),
+                R.anim.recyclerview_animation
+            )
+        )
         binding.rcProducts.addOnScrollListener(onScrollListener)
 
         observeCartAdd()
@@ -157,7 +162,7 @@ class FilterResultFragment : Fragment() {
                             requireActivity().supportFragmentManager,
                             "Cart Dialog"
                         )
-                    }else{
+                    } else {
                         Log.e("TAG", "doInitialization: added")
                     }
                 } else {
@@ -172,9 +177,9 @@ class FilterResultFragment : Fragment() {
     private fun fillProducts() {
         viewModel.dataFilterProducts.observe(viewLifecycleOwner,
             {
-                if (it != null){
-                    if (it.status == 200){
-                        if (it.data.data.isEmpty() && currentPage == 1){
+                if (it != null) {
+                    if (it.status == 200) {
+                        if (it.data.data.isEmpty() && currentPage == 1) {
                             binding.tvEmpty.visibility = View.VISIBLE
                         } else {
                             totalAvailablePages = it.data.paginate.total_pages
@@ -207,15 +212,15 @@ class FilterResultFragment : Fragment() {
 
         val map: MutableMap<String, RequestBody> = HashMap()
 
-        for ((i, cat) in categoryId.withIndex())  {
+        for ((i, cat) in categoryId.withIndex()) {
             map["category[$i]"] = toRequestBody(cat.toString())
         }
 
-        for ((i, occ) in occasionId.withIndex())  {
+        for ((i, occ) in occasionId.withIndex()) {
             map["occasion[$i]"] = toRequestBody(occ.toString())
         }
 
-        for ((i, prep) in preparationId.withIndex())  {
+        for ((i, prep) in preparationId.withIndex()) {
             map["preparation[$i]"] = toRequestBody(prep.toString())
         }
 
@@ -227,7 +232,7 @@ class FilterResultFragment : Fragment() {
     }
 
     fun toRequestBody(value: String): RequestBody {
-        return RequestBody.create("text/plain".toMediaTypeOrNull(), value)
+        return value.toRequestBody("text/plain".toMediaTypeOrNull())
     }
 
 }

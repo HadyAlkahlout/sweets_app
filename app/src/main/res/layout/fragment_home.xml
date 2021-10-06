@@ -337,125 +337,125 @@
 
             </androidx.core.widget.NestedScrollView>
 
+            <LinearLayout
+                android:id="@+id/cardNav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="21dp"
+                android:background="@drawable/background_home_nav"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:weightSum="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
                 <LinearLayout
-                    android:id="@+id/cardNav"
-                    android:layout_width="match_parent"
+                    android:id="@+id/navCart"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_home_nav"
+                    android:layout_weight="0.49"
+                    android:background="@android:color/transparent"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="1"
-                    android:layout_marginStart="21dp"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginEnd="21dp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/navCart"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.49"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center"
-                        android:background="@android:color/transparent"
-                        android:orientation="vertical">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <androidx.cardview.widget.CardView
-                                android:id="@+id/cardBadge"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginBottom="16dp"
-                                android:visibility="gone"
-                                app:cardBackgroundColor="@android:color/transparent"
-                                app:cardCornerRadius="50dp"
-                                app:cardElevation="2dp"
-                                app:layout_constraintBottom_toBottomOf="@id/imgCart"
-                                app:layout_constraintEnd_toEndOf="@id/imgCart"
-                                app:layout_constraintStart_toStartOf="@id/imgCart"
-                                app:layout_constraintTop_toTopOf="@id/imgCart">
-
-                                <TextView
-                                    android:id="@+id/tvCartItems"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:background="@drawable/background_cart_badge"
-                                    android:padding="2dp"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/white"
-                                    android:textSize="10dp"
-                                    android:textStyle="bold" />
-
-                            </androidx.cardview.widget.CardView>
-
-                            <ImageView
-                                android:id="@+id/imgCart"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_cart"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <TextView
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardBadge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:fontFamily="@font/al_jazeera_arabic"
-                            android:text="@string/my_cart"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:layout_marginStart="20dp"
+                            android:layout_marginBottom="16dp"
+                            android:visibility="gone"
+                            app:cardBackgroundColor="@android:color/transparent"
+                            app:cardCornerRadius="50dp"
+                            app:cardElevation="2dp"
+                            app:layout_constraintBottom_toBottomOf="@id/imgCart"
+                            app:layout_constraintEnd_toEndOf="@id/imgCart"
+                            app:layout_constraintStart_toStartOf="@id/imgCart"
+                            app:layout_constraintTop_toTopOf="@id/imgCart">
 
-                    </LinearLayout>
+                            <TextView
+                                android:id="@+id/tvCartItems"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/background_cart_badge"
+                                android:padding="2dp"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="10dp"
+                                android:textStyle="bold" />
 
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="44dp"
-                        android:layout_gravity="center"
-                        android:background="#A6D4C7" />
-
-                    <LinearLayout
-                        android:id="@+id/navStore"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.49"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center"
-                        android:background="@android:color/transparent"
-                        android:orientation="vertical">
+                        </androidx.cardview.widget.CardView>
 
                         <ImageView
+                            android:id="@+id/imgCart"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_shop" />
+                            android:src="@drawable/ic_cart"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:fontFamily="@font/al_jazeera_arabic"
-                            android:text="@string/stores"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/al_jazeera_arabic"
+                        android:text="@string/my_cart"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center"
+                    android:background="#A6D4C7" />
+
+                <LinearLayout
+                    android:id="@+id/navStore"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.49"
+                    android:background="@android:color/transparent"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_shop" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/al_jazeera_arabic"
+                        android:text="@string/stores"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.navigation.NavigationView

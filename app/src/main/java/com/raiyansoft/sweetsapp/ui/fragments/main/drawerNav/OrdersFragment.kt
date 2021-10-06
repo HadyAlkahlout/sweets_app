@@ -1,7 +1,6 @@
 package com.raiyansoft.sweetsapp.ui.fragments.main.drawerNav
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -55,17 +54,29 @@ class OrdersFragment : Fragment() {
 
     private fun doInitialization() {
 
-        binding!!.imgBack.setOnClickListener{
+        binding!!.imgBack.setOnClickListener {
             findNavController().navigateUp()
         }
 
         binding!!.tvCurrent.setOnClickListener {
-            if (type == 2){
+            if (type == 2) {
                 type = 1
-                binding!!.tvPrevious.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_simple_button)
-                binding!!.tvPrevious.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorTextPrimary))
-                binding!!.tvCurrent.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_button)
-                binding!!.tvCurrent.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                binding!!.tvPrevious.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.background_simple_button)
+                binding!!.tvPrevious.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorTextPrimary
+                    )
+                )
+                binding!!.tvCurrent.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.background_button)
+                binding!!.tvCurrent.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.white
+                    )
+                )
                 adapter.data.clear()
                 adapter.notifyDataSetChanged()
                 currentPage = 1
@@ -74,12 +85,24 @@ class OrdersFragment : Fragment() {
         }
 
         binding!!.tvPrevious.setOnClickListener {
-            if (type == 1){
+            if (type == 1) {
                 type = 2
-                binding!!.tvCurrent.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_simple_button)
-                binding!!.tvCurrent.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorTextPrimary))
-                binding!!.tvPrevious.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_button)
-                binding!!.tvPrevious.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                binding!!.tvCurrent.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.background_simple_button)
+                binding!!.tvCurrent.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorTextPrimary
+                    )
+                )
+                binding!!.tvPrevious.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.background_button)
+                binding!!.tvPrevious.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.white
+                    )
+                )
                 adapter.data.clear()
                 adapter.notifyDataSetChanged()
                 currentPage = 1
@@ -96,7 +119,12 @@ class OrdersFragment : Fragment() {
 
         binding!!.rcOrders.adapter = adapter
         binding!!.rcOrders.layoutManager = LinearLayoutManager(requireContext())
-        binding!!.rcOrders.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.recyclerview_animation))
+        binding!!.rcOrders.startAnimation(
+            AnimationUtils.loadAnimation(
+                requireContext(),
+                R.anim.recyclerview_animation
+            )
+        )
         binding!!.rcOrders.addOnScrollListener(onScrollListener)
 
         binding!!.swipeLayout.setOnRefreshListener {
@@ -124,11 +152,11 @@ class OrdersFragment : Fragment() {
 
     private fun getData() {
         loading = true
-        if (binding != null){
+        if (binding != null) {
             binding!!.swipeLayout.isRefreshing = true
         }
         var typeName = ""
-        if (type == 1){
+        if (type == 1) {
             typeName = "current"
         } else {
             typeName = "prev"

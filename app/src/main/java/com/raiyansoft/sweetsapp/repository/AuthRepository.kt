@@ -10,17 +10,20 @@ class AuthRepository {
 
     suspend fun login(
         lang : String,
+        areaId: Int,
         login : Login
-    ) = ServiceBuilder.apis!!.login(lang, login)
+    ) = ServiceBuilder.apis!!.login(lang, areaId, login)
 
     suspend fun logout(
-        token : String
-    ) = ServiceBuilder.apis!!.logout(token)
+        token : String,
+        areaId: Int
+    ) = ServiceBuilder.apis!!.logout(token, areaId,)
 
     suspend fun activateAccount(
         lang : String,
+        areaId: Int,
         verification : Verification
-    ) = ServiceBuilder.apis!!.activateAccount(lang, verification)
+    ) = ServiceBuilder.apis!!.activateAccount(lang, areaId, verification)
 
     suspend fun saveLocation(
         lang : String,

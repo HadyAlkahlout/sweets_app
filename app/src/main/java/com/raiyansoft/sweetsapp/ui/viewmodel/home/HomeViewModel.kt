@@ -20,10 +20,22 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private val lang = Commons.getSharedPreferences(application.applicationContext).getString(
         Commons.LANGUAGE, "ar")!!
+    private val location = Commons.getLocation(application.applicationContext)
 
     private fun getDataHome() {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.getHome(lang)
+            val response = repository.getHome(lang, location.area_id)
+            if (response.isSuccessful){
+                withContext(Dispatchers.Main){
+                    dataHome.value = response.body()
+                }
+            }
+        }
+    }
+
+    fun regetHome(areaID: Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = repository.getHome(lang, areaID)
             if (response.isSuccessful){
                 withContext(Dispatchers.Main){
                     dataHome.value = response.body()

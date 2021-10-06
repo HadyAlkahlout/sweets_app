@@ -1,7 +1,6 @@
 package com.raiyansoft.sweetsapp.ui.fragments.main.category
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -69,10 +68,19 @@ class CategoriesFragment : Fragment() {
         customizeContent()
         fillCategories()
         adapter = CategoryAdapter { category ->
-            val action = CategoriesFragmentDirections.actionCategoriesFragmentToCategoryFragment()
-            action.categoryId = category.id
-            action.categoryType = catType
-            findNavController().navigate(action)
+
+            if (catType == 1) {
+                val action =
+                    CategoriesFragmentDirections.actionCategoriesFragmentToCategoryFragment()
+                action.categoryId = category.id
+                findNavController().navigate(action)
+            } else {
+                val action =
+                    CategoriesFragmentDirections.actionCategoriesFragmentToOccasionFragment()
+                action.categoryId = category.id
+                findNavController().navigate(action)
+            }
+
         }
 
         binding!!.rcCategories.adapter = adapter
@@ -124,7 +132,7 @@ class CategoriesFragment : Fragment() {
 
     private fun getData() {
         loading = true
-        if (binding != null){
+        if (binding != null) {
             binding!!.swipeLayout.isRefreshing = true
         }
         if (catType == 0) {
