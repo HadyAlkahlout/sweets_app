@@ -6,10 +6,13 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.FragmentActivity
 import com.google.gson.Gson
 import com.raiyansoft.sweetsapp.R
 import com.raiyansoft.sweetsapp.models.address.Location
 import com.raiyansoft.sweetsapp.ui.activities.AuthActivity
+import com.raiyansoft.sweetsapp.ui.dialogs.IndeterminateProgressDialog
+import java.lang.ClassCastException
 import java.util.*
 
 object Commons {
@@ -29,6 +32,8 @@ object Commons {
     const val OPEN_ORDER = "openOrder"
     const val ORDER_ID = "orderID"
     const val KEY_MY_LOCATION = "myLocation"
+
+    val dialog = IndeterminateProgressDialog()
 
     fun setLocale(lang: String, context: Context) {
         val locale = Locale(lang)
@@ -58,11 +63,20 @@ object Commons {
         dialog.show()
     }
 
+    fun showLoadingDialog(activity: FragmentActivity) {
+        dialog.isCancelable = false
+        dialog.show(activity.supportFragmentManager, "Loading")
+    }
+
+    fun dismissLoadingDialog() {
+        dialog.dismiss()
+    }
+
 
     fun getLocation(context: Context): Location {
         val gson = Gson()
-        val json: String = Commons.getSharedPreferences(context)
-            .getString(Commons.KEY_MY_LOCATION, "")!!
+        val json: String = getSharedPreferences(context)
+            .getString(KEY_MY_LOCATION, "")!!
         return gson.fromJson(json, Location::class.java)
     }
 

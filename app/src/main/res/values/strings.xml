@@ -151,6 +151,7 @@ Connect to the internet and try again.</string>
     <string name="rate_massage_error">Please add your review massage</string>
     <string name="rate_review_error">Please add a review</string>
     <string name="rate_done">Your review sent successfully!!</string>
+    <string name="cart_empty">Your cart is empty!!</string>
 
     <string name="closed">Closed</string>
     <string name="busy">Busy</string>

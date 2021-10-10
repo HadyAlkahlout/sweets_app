@@ -10,11 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.raiyansoft.sweetsapp.BR
 import com.raiyansoft.sweetsapp.R
 import com.raiyansoft.sweetsapp.adapters.CartCartAdapter
 import com.raiyansoft.sweetsapp.databinding.FragmentCartBinding
 import com.raiyansoft.sweetsapp.models.cart.CartResponse
 import com.raiyansoft.sweetsapp.models.cart.ChangeQuantity
+import com.raiyansoft.sweetsapp.models.cart.Item
 import com.raiyansoft.sweetsapp.ui.viewmodel.cart.CartViewModel
 
 class CartFragment : Fragment() {
@@ -46,6 +48,7 @@ class CartFragment : Fragment() {
         doInitialization()
     }
 
+
     private fun doInitialization() {
         binding!!.isEmpty = true
         adapter = CartCartAdapter(
@@ -71,8 +74,6 @@ class CartFragment : Fragment() {
         )
         getCart()
         binding!!.refreshLayout.setOnRefreshListener {
-            adapter.data.clear()
-            adapter.notifyDataSetChanged()
             getData()
         }
         binding!!.tvPay.setOnClickListener {
@@ -94,8 +95,7 @@ class CartFragment : Fragment() {
                         binding!!.cart = it.data
                         val total = it.data.total + it.data.total_delivery_fees
                         binding!!.tvTotal.text = "$total"
-                        adapter.data.addAll(it.data.items)
-                        adapter.notifyDataSetChanged()
+                        adapter.data = it.data.items
                         binding!!.refreshLayout.isRefreshing = false
                     } else {
                         Snackbar.make(requireView(), it.message, Snackbar.LENGTH_SHORT).show()
@@ -119,8 +119,6 @@ class CartFragment : Fragment() {
                 if (it != null) {
                     if (it.status == 200) {
                         Snackbar.make(requireView(), it.data, Snackbar.LENGTH_SHORT).show()
-                        adapter.data.clear()
-                        adapter.notifyDataSetChanged()
                         getData()
                         binding!!.refreshLayout.isRefreshing = false
                     } else {
@@ -133,8 +131,6 @@ class CartFragment : Fragment() {
                 if (it != null) {
                     if (it.status == 200) {
                         Snackbar.make(requireView(), it.data, Snackbar.LENGTH_SHORT).show()
-                        adapter.data.clear()
-                        adapter.notifyDataSetChanged()
                         getData()
                         binding!!.refreshLayout.isRefreshing = false
                     } else {

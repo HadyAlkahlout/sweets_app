@@ -77,7 +77,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="16dp"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/colorSecondary"
                     android:fontFamily="@font/al_jazeera_arabic"
                     android:text="@string/location_ditict"
                     android:textAlignment="center"

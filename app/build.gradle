@@ -107,4 +107,7 @@ dependencies {
 
     // Rounded ImageView
     implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    // Loading Dialog
+    implementation 'com.wang.avi:library:2.1.3'
 }

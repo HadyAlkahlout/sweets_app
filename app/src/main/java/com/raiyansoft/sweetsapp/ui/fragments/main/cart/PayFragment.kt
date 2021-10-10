@@ -15,6 +15,7 @@ import com.raiyansoft.sweetsapp.databinding.FragmentPayBinding
 import com.raiyansoft.sweetsapp.models.cart.SubmitCart
 import com.raiyansoft.sweetsapp.ui.activities.PayActivity
 import com.raiyansoft.sweetsapp.ui.viewmodel.cart.CartViewModel
+import com.raiyansoft.sweetsapp.util.Commons
 
 class PayFragment : Fragment() {
 
@@ -75,7 +76,7 @@ class PayFragment : Fragment() {
     private fun goPay(id: Int) {
         if (pay) {
             pay = false
-            binding.pbLoad.visibility = View.VISIBLE
+            Commons.showLoadingDialog(requireActivity())
             when (id) {
                 1 -> {
                     submitCart = SubmitCart("knet")
@@ -94,6 +95,7 @@ class PayFragment : Fragment() {
                         if (it.status == 200) {
                             // Do Payment
                             if (id == 3) {
+                                Commons.dismissLoadingDialog()
                                 Snackbar.make(
                                     requireView(),
                                     getString(R.string.order_completed),

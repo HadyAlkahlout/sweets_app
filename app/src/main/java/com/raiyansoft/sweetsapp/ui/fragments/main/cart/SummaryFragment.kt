@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TimePicker
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -22,6 +23,11 @@ import com.raiyansoft.sweetsapp.models.cart.Product
 import com.raiyansoft.sweetsapp.models.cart.SubmitDetails
 import com.raiyansoft.sweetsapp.ui.dialogs.MyAddressesDialog
 import com.raiyansoft.sweetsapp.ui.viewmodel.cart.CartViewModel
+import com.raiyansoft.sweetsapp.util.Commons
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.math.log
 
 class SummaryFragment : Fragment(), TimePickerDialog.OnTimeSetListener,
     DatePickerDialog.OnDateSetListener {
@@ -39,6 +45,13 @@ class SummaryFragment : Fragment(), TimePickerDialog.OnTimeSetListener,
 
     private val timeDialog by lazy {
         com.raiyansoft.sweetsapp.ui.dialogs.TimePickerDialog(this)
+    }
+
+    private val builder by lazy {
+        AlertDialog.Builder(requireContext())
+    }
+    private val dialog by lazy {
+        builder.create()
     }
 
     private var areaID = 0
@@ -74,7 +87,14 @@ class SummaryFragment : Fragment(), TimePickerDialog.OnTimeSetListener,
                     R.drawable.edittext_error_background
                 )
             } else {
-                goPay()
+
+                builder.setTitle(getString(R.string.warning))
+                builder.setMessage(getString(R.string.are_sure))
+                builder.setPositiveButton(getString(R.string.ok)) { _, _ -> goPay() }
+                builder.setNegativeButton(getString(R.string.cancel)) { d, _ -> d.dismiss() }
+                builder.setCancelable(false)
+                dialog.show()
+
             }
         }
         binding.layoutDate.setOnClickListener {
@@ -95,6 +115,7 @@ class SummaryFragment : Fragment(), TimePickerDialog.OnTimeSetListener,
 
     private fun goPay() {
         if (pay) {
+            Commons.showLoadingDialog(requireActivity())
             pay = false
             val submitDetails = SubmitDetails(areaID, date, time)
             viewModel.submitDetails(submitDetails)
@@ -102,6 +123,7 @@ class SummaryFragment : Fragment(), TimePickerDialog.OnTimeSetListener,
                 {
                     if (it != null) {
                         if (it.status == 200) {
+                            Commons.dismissLoadingDialog()
                             val action =
                                 SummaryFragmentDirections.actionSummaryFragmentToPayFragment()
                             action.total = total
@@ -145,12 +167,24 @@ class SummaryFragment : Fragment(), TimePickerDialog.OnTimeSetListener,
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         binding.tvTime.text = "$hourOfDay:$minute"
         time = "$hourOfDay:$minute"
+        Log.e("date", "onTimeSet: $time")
         timeDialog.dismiss()
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         binding.tvDate.text = "$dayOfMonth/${month + 1}/$year"
-        date = "$dayOfMonth/$month/$year"
+        date = "$dayOfMonth/${month + 1}/$year"
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        val currentDate = sdf.format(Date())
+        if (currentDate != date) {
+            binding.tvTime.text = "08:00"
+            time = "8:00"
+        } else {
+            binding.tvDate.text = getString(R.string.date_hint)
+            binding.tvTime.text = getString(R.string.time_hint)
+            date = ""
+            time = ""
+        }
         dateDialog.dismiss()
     }
 

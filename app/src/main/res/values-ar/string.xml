@@ -152,6 +152,7 @@
     <string name="rate_massage_error">الرجاء ادخال تعليقك</string>
     <string name="rate_review_error">الرجاء قم باضافة تقييم</string>
     <string name="rate_done">تم إرسال تقييمك بنجاح!!</string>
+    <string name="cart_empty">عربتك فارغة!!</string>
 
     <string name="closed">مغلق</string>
     <string name="busy">مشغول</string>

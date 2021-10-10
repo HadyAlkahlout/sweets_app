@@ -34,11 +34,25 @@ class SplashActivity : AppCompatActivity() {
         ViewModelProvider(this)[TokenViewModel::class.java]
     }
 
+    private val builder by lazy {
+        AlertDialog.Builder(this@SplashActivity)
+    }
+    private val dialog by lazy {
+        builder.create()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         doInitialization()
+
+
+        builder.setTitle(getString(R.string.internet_issue))
+        builder.setMessage(getString(R.string.internet_issue_message))
+        builder.setPositiveButton(getString(R.string.ok)) { _, _ -> finish() }
+        builder.setCancelable(false)
+
     }
 
     private fun doInitialization() {
@@ -81,11 +95,6 @@ class SplashActivity : AppCompatActivity() {
                             }
                         }
                     } else {
-                        val builder = AlertDialog.Builder(this@SplashActivity)
-                        builder.setTitle(getString(R.string.internet_issue))
-                        builder.setMessage(getString(R.string.internet_issue_message))
-                        builder.setPositiveButton(getString(R.string.ok)) { _, _ -> finish() }
-                        val dialog = builder.create()
                         dialog.show()
                     }
                 })
@@ -94,6 +103,8 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun doSomething() {
+        if (dialog.isShowing)
+            dialog.dismiss()
         val login = Commons.getSharedPreferences(this).getBoolean(Commons.LOGIN, false)
         if (login) {
             startActivity(Intent(this, MainActivity::class.java))
